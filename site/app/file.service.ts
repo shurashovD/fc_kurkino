@@ -1,0 +1,38 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+
+const fileApi = createApi({
+	baseQuery: fetchBaseQuery({ baseUrl: "/api/site" }),
+	endpoints: (build) => ({
+		upload: build.query<string, string>({
+			query: (fileName) => ({
+				url: `/file/${fileName}`,
+				responseHandler: (res) =>
+					res
+						.blob()
+						.then((blob) =>
+							URL.createObjectURL(new File([blob], fileName))
+						),
+			}),
+			providesTags: () => ["intro"],
+		}),
+		static: build.query<string, string>({
+			query: (path) => ({
+				url: `/static?file=${path}`,
+				responseHandler: (res) =>
+					res
+						.blob()
+						.then((blob) =>
+							URL.createObjectURL(
+								new File([blob], path.split("/").pop() || "")
+							)
+						),
+			}),
+		}),
+	}),
+	reducerPath: "fileApi",
+	tagTypes: ["intro"],
+})
+
+export const { useStaticQuery, useUploadQuery } = fileApi
+
+export default fileApi

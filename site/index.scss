@@ -1,0 +1,217 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../node_modules/bootstrap/scss/functions";
+
+@font-face {
+  font-family: "IBM";
+  src: url("./fonts/IBM_Plex_Sans/IBMPlexSans-Light.ttf");
+}
+
+@font-face {
+  font-family: "Noto";
+  src: url("./fonts/Noto_Sans/NotoSans-Light.ttf");
+}
+
+@font-face {
+  font-family: "IBM-medium";
+  src: url("./fonts/IBM_Plex_Sans/IBMPlexSans-Medium.ttf");
+}
+
+// 2. Include any default variable overrides here
+$primary: #009640;
+$secondary: #9D9D9D;
+$success: #FFFF3B;
+$dark: #131512;
+$light: #F3F3F3;
+
+$bs-body-font-family: "Noto";
+$bs-body-font-size: 1rem;
+$bs-body-font-weight: 400;
+$bs-body-line-height: 1.35;
+$bs-body-color: $dark;
+
+$placeholder-opacity-max:           0.6;
+$placeholder-opacity-min:           0.1;
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a, .btn {
+    text-decoration: none !important;
+}
+
+h3, h4 {
+  font-family: "IBM-medium";
+}
+
+small {
+  font-size: 75%;
+}
+
+a.active.focus,
+a.active:focus,
+a.focus,
+a:active.focus,
+a:active:focus,
+a:focus,
+button.active.focus,
+button.active:focus,
+button.focus,
+button:active.focus,
+button:active:focus,
+button:focus,
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+   outline: 0;
+    outline-color: transparent;
+    outline-width: 0;
+    outline-style: none;
+    box-shadow: 0 0 0 0 rgba(0,123,255,0);
+}
+
+.placeholder-intro {
+  filter: blur(16px);
+  cursor: default;
+}
+
+.ibm {
+  font-family: "IBM";
+}
+
+.ibm-medium {
+  font-family: "IBM-medium";
+}
+
+
+#intro-placeholder {
+  background-image: url("./img/intro-load.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#main-matches {
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+.arrow-right {
+    margin: 0;
+    padding: 0;
+    min-width: 50px;
+    height: 50px;
+    background-image: url('./img/Arrow\ 1\ \(Stroke\).png');
+    background-position: center center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+
+.arrow-right-primary {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    background-image: url('./img/arrow-right-primary.png');
+    background-position: center center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+
+  .arrow-right-secondary {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    background-image: url('./img/arrow-right-secondary.png');
+    background-position: center center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+
+.card {
+    border: 0;
+    box-shadow: 1px 1px 22px rgba(226, 220, 220, 0.84), 0px 0px 8px rgba(111, 99, 99, 0.37);
+    //max-width: 348px;
+    border-radius: 0;
+  }
+
+.card-header {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.17);
+}
+
+.card-image-container {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.card-logo-placeholder {
+  background-image: url("./img/intro-load.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+#match-carousel-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+}
+#match-carousel-container::-webkit-scrollbar { width: 0; height: 0; }
+
+.match-carousel-item:first-child {
+  margin-left: 8%;
+}
+.match-carousel-item:last-child {
+  margin-right: 8%;
+}
+
+#main-photos {
+  padding-bottom: 74px;
+}
+
+@media (min-width: 576px) {
+    .match-carousel-item:first-child {
+      margin-left: 12.5%;
+    }
+    .match-carousel-item:last-child {
+      margin-right: 12.5%;
+    }
+
+    #main-photos {
+      padding-bottom: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    #header-logo {
+    position: relative;
+    top: 1.5rem;
+  }
+
+  #main-matches {
+    padding-top: 100px;
+    padding-bottom: 125px;
+  }
+}
