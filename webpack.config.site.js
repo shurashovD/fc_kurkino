@@ -16,10 +16,11 @@ module.exports = {
     },
     mode: 'production',
     output: {
+        assetModuleFilename: 'assets/[hash][ext][query]',
         clean: true,
         path: path.resolve(__dirname, 'dist', 'static', 'site'),
         filename: '[name].[contenthash].js',
-        publicPath: '/static/site'
+        publicPath: '/static/site/'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js']

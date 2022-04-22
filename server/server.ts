@@ -12,6 +12,7 @@ import adminRoutes from './routes/admin.routes'
 import siteRoutes from './routes/site.routes'
 import { engine } from 'express-handlebars'
 import authMiddleware from './middleware/auth.middleware'
+import { readFile } from 'fs/promises'
 
 const PORT = 3000
 
@@ -48,20 +49,6 @@ app.use(
 	})
 )
 
-app.get('/', async (req, res) => {
-    try {
-        if ( req.session.admin ) {
-            return res.redirect('/admin/panel')
-        }
-        return res.send('FC Kurkino')
-    }
-    catch (e) {
-        console.log(e)
-        return res.status(500).send('Что-то пошло не так...')
-    }
-    
-})
-
 app.use("/admin", adminRoutes)
 
 app.use("/api/site", siteRoutes)
@@ -73,3 +60,18 @@ app.use("/api/match", authMiddleware, matchRoutes)
 app.use("/api/squad", authMiddleware, squadRoutes)
 
 app.use("/api/coach", authMiddleware, coachRoutes)
+
+
+app.get("*", async (req, res) => {
+	try {
+		if (req.session.admin) {
+			return res.redirect("/admin/panel")
+		}
+		const tempPath = path.join(__dirname, "static", "site", "index.html")
+		const template = await readFile(tempPath, { encoding: "utf-8" })
+		return res.send(template)
+	} catch (e) {
+		console.log(e)
+		return res.status(500).send("Что-то пошло не так...")
+	}
+})
