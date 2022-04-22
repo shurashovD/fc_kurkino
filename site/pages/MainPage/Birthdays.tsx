@@ -72,6 +72,7 @@ const Birthdays = () => {
 								activeIndex={index}
 								controls={false}
 								interval={null}
+								indicators={false}
 								onSelect={(num) => setIndex(num)}
 							>
 								{data.map(

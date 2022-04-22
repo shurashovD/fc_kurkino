@@ -42,7 +42,7 @@ const BirthdayCarouselItem: FC<IBirthdayItemProps> = ({date, name, post, src, to
 				)}
 			</p>
 			<div className="d-flex mb-4">
-				<div className="w-100 border position-relative">
+				<div className="w-100 position-relative">
 					<div
 						className={`position-absolute w-100 start-50 bg-${
 							today ? "white" : "secondary"
@@ -89,7 +89,7 @@ const BirthdayCarouselItem: FC<IBirthdayItemProps> = ({date, name, post, src, to
 						</Placeholder>
 					)}
 				</div>
-				<div className="w-100 border position-relative">
+				<div className="w-100 position-relative">
 					<div
 						className={`position-absolute w-100 start-50 bg-${
 							today ? "white" : "secondary"

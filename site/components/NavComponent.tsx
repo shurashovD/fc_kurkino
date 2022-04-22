@@ -52,7 +52,7 @@ const NavComponent = () => {
 							</NavLink>
 						</Navbar.Brand>
 					</Col>
-					<Col xs={10} xl={8}>
+					<Col xs={6} lg={10} xl={8}>
 						<Navbar.Collapse className="h-100 d-none d-lg-block">
 							<Nav className="w-100 justify-content-lg-between">
 								<NavLink

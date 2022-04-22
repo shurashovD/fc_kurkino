@@ -7,7 +7,7 @@ const Footer = () => {
 		<Container fluid className="bg-dark m-0 p-3 pt-5">
 			<Container>
 				<Row>
-					<Col xs={12} md={2} className="text-center mb-3 mb-md-0">
+					<Col xs={12} md={2} className="text-center mb-5 mb-md-0">
 						<Image
 							width="121"
 							src={Logo}
@@ -21,19 +21,19 @@ const Footer = () => {
 						className="text-white d-flex flex-column"
 					>
 						<p className="text-uppercase m-0">Меню:</p>
-						<NavLink to="/" className="text-secondary footer-link">
+						<NavLink to="/" className="text-secondary footer-link mb-1">
 							О клубе
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link">
+						<NavLink to="/" className="text-secondary footer-link mb-1">
 							Матчи
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link">
+						<NavLink to="/" className="text-secondary footer-link mb-1">
 							Состав команды
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link">
+						<NavLink to="/" className="text-secondary footer-link mb-1">
 							Тренерский штаб
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link">
+						<NavLink to="/" className="text-secondary footer-link mb-1">
 							Контакты
 						</NavLink>
 					</Col>
@@ -45,13 +45,13 @@ const Footer = () => {
 						<p className="text-uppercase m-0">Контакты:</p>
 						<a
 							href="tel:+79021215126"
-							className="text-secondary footer-link w-100"
+							className="text-secondary footer-link w-100 mb-1"
 						>
 							Телефон: +7(902)12-15-126
 						</a>
 						<a
 							href="mailto:fc-kurkino.mail.ru"
-							className="text-secondary footer-link w-100"
+							className="text-secondary footer-link w-100 mb-1"
 						>
 							E-mail: fc-kurkino.mail.ru
 						</a>
@@ -72,11 +72,11 @@ const Footer = () => {
 					<Col
 						xs={12}
 						md={3}
-						className="text-center text-md-start d-flex"
+						className="d-flex"
 					>
 						<a
 							href="https://www.behance.net/natali_shurashova"
-							className="text-secondary footer-link mt-auto"
+							className="text-secondary footer-link mt-auto text-center text-md-start mx-auto mx-md-0"
 						>
 							Сайт разработан “Pazzl”
 						</a>

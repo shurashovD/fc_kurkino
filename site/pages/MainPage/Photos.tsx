@@ -68,6 +68,7 @@ const Photos = () => {
 							indicators={false}
 							activeIndex={index}
 							onSelect={handler}
+							controls={false}
 						>
 							{data?.map(({ photo }, index) => (
 								<Carousel.Item key={`m_photo_${index}`}>
@@ -76,7 +77,7 @@ const Photos = () => {
 							))}
 						</Carousel>
 					)}
-					{mobile && (
+					{mobile && (title.length > 0) && (
 						<p className="bg-primary text-white text-uppercase p-2 d-sm-none w-100">
 							<NavLink to="/" className="text-white">
 								{title}
