@@ -6,13 +6,13 @@ import Photos from "./Photos"
 
 const MainPage = () => {
     return (
-        <Container fluid className="p-0">
-            <Intro />
-            <Matches />
-            <Photos />
-            <Birthdays />
-        </Container>
-    )
+		<Container fluid className="p-0">
+			<Intro />
+			<Matches />
+			<Photos />
+			<Birthdays />
+		</Container>
+	)
 }
 
 export default MainPage

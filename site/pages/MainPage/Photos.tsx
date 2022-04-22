@@ -13,12 +13,12 @@ const Photos = () => {
 
     const handler = (event: number) => {
         setIndex(event)
-        setTitle(data?.[event].title || "")
+        setTitle(data?.[event]?.title || "")
     }
 
     useEffect(() => {
-        if (isSuccess && data?.[0].title) {
-            setTitle(data[0].title)
+        if (isSuccess && data?.[0]?.title) {
+            setTitle(data?.[0]?.title || '')
         }
     }, [isSuccess])
 
