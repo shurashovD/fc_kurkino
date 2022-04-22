@@ -1,19 +1,35 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, CloseButton, Col, Container, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
-import Logo from "./../img/logo.png"
+import Logo from "./../img/logo.svg"
 
 const NavComponent = () => {
     const { pathname } = useLocation()
 	const [show, setShow] = useState(false)
-    const [bgDark, setBgDark] = useState(false)
+    const [bgOpacity, setBgOpacity] = useState(true)
 	const [sticky, setSticky] = useState(false)
 
+	useEffect(() => {
+		if ( pathname === '/' ) {
+			setSticky(false)
+			setBgOpacity(true)
+		}
+		else {
+			setSticky(true)
+			setBgOpacity(false)
+		}
+	}, [pathname])
+
     return (
-		<Navbar expand="lg" className={`
-			${bgDark && 'bg-dark'} 
-			${sticky ? "sticky-top" : "position-absolute top-0 start-0 end-0"} m-0
-		`} style={{ zIndex: '1000' }}>
+		<Navbar
+			expand="lg"
+			className={`
+				${bgOpacity && "bg-opacity-50"} 
+				${sticky ? "sticky-top" : "position-absolute top-0 start-0 end-0"} 
+				m-0 bg-dark p-0
+			`}
+			style={{ zIndex: "1000" }}
+		>
 			<Container className="p-0">
 				<Row className="w-100 m-0 p-0">
 					<Col xs={2}>
@@ -29,14 +45,14 @@ const NavComponent = () => {
 								<img
 									alt="logo"
 									src={Logo}
-									width="131"
+									width="90"
 									className="d-none d-md-block"
 									id="header-logo"
 								/>
 							</NavLink>
 						</Navbar.Brand>
 					</Col>
-					<Col xs={7} sm={8}>
+					<Col xs={10} xl={8}>
 						<Navbar.Collapse className="h-100 d-none d-lg-block">
 							<Nav className="w-100 justify-content-lg-between">
 								<NavLink
@@ -92,7 +108,7 @@ const NavComponent = () => {
 							</Nav>
 						</Navbar.Collapse>
 					</Col>
-					<Col xs={2} className="d-flex">
+					<Col xs={2} md={0} className="d-flex d-md-none">
 						<Navbar.Toggle
 							onClick={() => setShow(true)}
 							className="m-auto"

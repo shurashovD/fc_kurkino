@@ -77,6 +77,15 @@ export interface IMatchPhoto {
 	photo: string
 }
 
+export interface IBirthday {
+	_id: Types.ObjectId
+	name: string
+	photo: string
+	post: string
+	date: string
+	today: boolean
+}
+
 declare module "express-session" {
 	interface SessionData {
 		admin: boolean

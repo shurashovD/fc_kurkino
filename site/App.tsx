@@ -8,6 +8,7 @@ import MainPage from "./pages/MainPage/MainPage"
 import MatchPage from "./pages/MatchPage/MatchPage"
 import PlaybillPage from "./pages/PlaybillPage/PlaybillPage"
 import TeamPage from "./pages/TeamPage/TeamPage"
+import Footer from "./components/Footer"
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
 					<Route path="/about" element={<AboutPage />} />
 					<Route path="/contacts" element={<ContactsPage />} />
 				</Routes>
+				<Footer />
 			</Container>
 		</BrowserRouter>
 	)

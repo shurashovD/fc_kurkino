@@ -212,6 +212,29 @@ router.delete("/photos/:id", bodyParser.json(), async (req: Request<{id: string}
 	}
 })
 
+router.put('/video/:id', async (req, res) => {
+	try {
+		const { link: videoPath } = req.body
+		const { id } = req.params
+		
+		const match = await MatchModel.findById(id)
+		if (!match) {
+			return res.status(500).json({ message: "Матч не найден" })
+		}
+
+		if (match.video && match.video?.length > 0) {
+			match.video = match.video?.concat(videoPath)
+		} else {
+			match.video = [videoPath]
+		}
+		await match.save()
+		return res.end()
+	}
+	catch (e) {
+		console.log(e)
+		return res.status(500).json({ messsage: 'Что-то пошло не так...' })
+	}
+})
 
 /*router.put('/video/:id', uploadVideo.single('football-video'), async (req, res) => {
 	try {
@@ -238,7 +261,7 @@ router.delete("/photos/:id", bodyParser.json(), async (req: Request<{id: string}
 		console.log(e)
 		return res.status(500).json({ message: "Что-то пошло не так..." })
 	}
-})*/
+})
 
 router.put('/video/:id', bodyParser.json(), async (req, res) => {
 	try {
@@ -262,7 +285,7 @@ router.put('/video/:id', bodyParser.json(), async (req, res) => {
 		console.log(e)
 		return res.status(500).json({ message: "Что-то пошло не так..." })
 	}
-})
+})*/
 
 router.delete("/video/:id", bodyParser.json(), async (req: Request<{id: string}, {}, { files: string[] }>, res) => {
 	try {

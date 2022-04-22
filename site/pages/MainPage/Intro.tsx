@@ -14,17 +14,16 @@ const Intro = () => {
         const mobile = innerWidth < 768
         setMobile(mobile)
         
-        if (!mobile && innerWidth / innerHeight > 1.5) {
+        if (!mobile && (innerWidth / innerHeight > 1.5)) {
 			setHeight(innerHeight)
-			console.log(innerHeight)
 		}
     }, [])
 
     return (
-		<section className="w-100 min-vh-100 m-0 p-0">
+		<section className="w-100 m-0 p-0">
 			{(mobile && (mobileLoading || mobileError)) ||
 			(!mobile && (isLoading || isError)) ? (
-				<Placeholder as="div" animation="glow">
+				<Placeholder as="div" animation="wave">
 					<Placeholder
 						xs={12}
 						className="m-0 min-vh-100 placeholder-intro"
@@ -40,7 +39,7 @@ const Intro = () => {
 						width="100%"
 					/>
 					<div
-						className="position-absolute bottom-0 bg-primary bg-opacity-50 p-3 px-4 m-0 d-none d-lg-block"
+						className="position-absolute bottom-0 bg-primary bg-opacity-75 p-3 px-4 m-0 d-none d-lg-block"
 						style={{ left: "62%" }}
 					>
 						<p className="text-dark mb-2">Последние новости:</p>

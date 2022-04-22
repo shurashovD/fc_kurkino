@@ -1,4 +1,5 @@
 import { Container } from "react-bootstrap"
+import Birthdays from "./Birthdays"
 import Intro from "./Intro"
 import Matches from "./Matches"
 import Photos from "./Photos"
@@ -9,6 +10,7 @@ const MainPage = () => {
             <Intro />
             <Matches />
             <Photos />
+            <Birthdays />
         </Container>
     )
 }

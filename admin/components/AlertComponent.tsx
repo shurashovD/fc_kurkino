@@ -26,7 +26,7 @@ const AlertComponent = () => {
 	}, [dismiss, show])
 
     return (
-		<Container fluid className="position-absolute top-0 start-0 end-0 p-1" style={{ zIndex: 1080 }}>
+		<Container fluid className="position-fixed top-0 start-0 end-0 p-1" style={{ zIndex: 1080 }}>
 			<Alert show={show} variant={variant}>
 				{text}
 			</Alert>

@@ -11,7 +11,7 @@ const PhotoCarouselItem: FC<IPhotoCarouselItemProps> = ({ src }) => {
     const [height, setHeight] = useState(216)
 
 	const container = useCallback((element: HTMLDivElement) => {
-        const div = element.closest<HTMLDivElement>("div.carousel")
+        const div = element?.closest<HTMLDivElement>("div.carousel")
 		setHeight((208 * (div?.offsetWidth || 350)) / 370)
 	}, [])
 

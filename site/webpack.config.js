@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     name: 'site-dev',
     entry: path.resolve(__dirname, 'site.tsx'),
-    devtool: false,
+    devtool: 'eval-source-map',
     devServer: {
         open: true,
         static: true,

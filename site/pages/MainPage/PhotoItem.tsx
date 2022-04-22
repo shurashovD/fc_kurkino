@@ -14,7 +14,7 @@ const PhotoItem: FC<IPhotoItemProps> = ({ id, src, title }) => {
     const [height, setHeight] = useState(216)
 
     const container = useCallback((element: HTMLDivElement) => {
-        setHeight((208 * element.offsetWidth) / 370)
+        setHeight((208 * (element?.offsetWidth || 0)) / 370)
     }, [])
 
     return (
@@ -39,7 +39,7 @@ const PhotoItem: FC<IPhotoItemProps> = ({ id, src, title }) => {
 			)}
 			<NavLink
 				to={`/`}
-				className="position-absolute bottom-0 start-0 end-0 bg-primary bg-opacity-50 m-0 p-2 p-lg-3 text-uppercase text-white"
+				className="position-absolute bottom-0 start-0 end-0 bg-primary bg-opacity-50 m-0 p-2 p-lg-3 text-uppercase text-white photo-link"
 			>
 				{title}
 			</NavLink>
