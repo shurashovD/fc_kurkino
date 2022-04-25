@@ -27,7 +27,7 @@ const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src }) => {
 					<Placeholder sm={12} className="h-100 w-100" />
 				</Placeholder>
 			)}
-			{data && <Image alt="logo" src={data} />}
+			{data && <Image alt="logo" src={data} fluid />}
 		</div>
 	)
 }

@@ -7,11 +7,11 @@ interface IPhotoComponentProps {
 }
 
 const PhotoComponent: FC<IPhotoComponentProps> = ({ src = '' }) => {
-    const {data, isLoading, isError, isSuccess} = useStaticQuery(src, { refetchOnMountOrArgChange: true })
+    const {data, isLoading, isError} = useStaticQuery(src, { refetchOnMountOrArgChange: true })
 
     return (
 		<div
-			className={`${isError && "bg-light"}`}
+			className={`${isError && "bg-light"} h-100`}
 			style={{ minHeight: '200px' }}
 		>
 			{isLoading && (

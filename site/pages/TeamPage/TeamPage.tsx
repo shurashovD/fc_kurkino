@@ -62,44 +62,46 @@ const TeamPage = () => {
 			)}
 			{data && (
 				<Container>
-                    {data
-                        .slice(
-                            tabIndex === 0 ? 0 : tabIndex - 1,
-                            tabIndex === 0 ? undefined : tabIndex
-                        )
-                        .map(({ role, footballers }) => (
-						<>
-							<h3 className="mt-5 mb-1 text-uppercase">
-								{role}
-							</h3>
-							{mobile ? (
-								<FootballerCarousel footballers={footballers} />
-							) : (
-								<Row md={2} xl={3} className="g-4 mb-5">
-									{footballers.map(
-										({
-											id,
-											name,
-											number,
-											description,
-											photo,
-										}) => (
-											<Col key={id}>
-												<Item
-													name={name}
-													photo={photo}
-													number={number?.toString()}
-													description={
-														description
-													}
-												/>
-											</Col>
-										)
-									)}
-								</Row>
-							)}
-						</>
-					))}
+					{data
+						.slice(
+							tabIndex === 0 ? 0 : tabIndex - 1,
+							tabIndex === 0 ? undefined : tabIndex
+						)
+						.map(({ role, footballers }, index) => (
+							<Container key={`team_${index}`}>
+								<h3 className="mt-5 mb-1 text-uppercase">
+									{role}
+								</h3>
+								{mobile ? (
+									<FootballerCarousel
+										footballers={footballers}
+									/>
+								) : (
+									<Row md={2} xl={3} className="g-4 mb-5">
+										{footballers.map(
+											({
+												id,
+												name,
+												number,
+												description,
+												photo,
+											}) => (
+												<Col key={id}>
+													<Item
+														name={name}
+														photo={photo}
+														number={number?.toString()}
+														description={
+															description
+														}
+													/>
+												</Col>
+											)
+										)}
+									</Row>
+								)}
+							</Container>
+						))}
 				</Container>
 			)}
 		</Container>

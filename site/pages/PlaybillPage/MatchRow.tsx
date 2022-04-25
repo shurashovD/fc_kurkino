@@ -1,8 +1,7 @@
 import { FC } from "react"
-import { Col, Image, Placeholder, Row } from "react-bootstrap"
+import { Col, Row } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
-import { useStaticQuery } from "../../app/file.service"
-import noLogo from '../../img/no-logo.svg'
+import LogoComponent from "../../components/LogoComponent"
 
 interface IMatchRowInterface {
     id: string
@@ -20,13 +19,6 @@ interface IMatchRowInterface {
 }
 
 const MatchRow: FC<IMatchRowInterface> = (props) => {
-    const { data: homeLogo, isLoading: homeLoading, isError: homeError } = useStaticQuery(
-        props.homeLogo || '', { refetchOnMountOrArgChange: true }
-    )
-    const { data: guestLogo, isLoading: guestLoading, isError: guestError } = useStaticQuery(
-        props.guestLogo || '', { refetchOnMountOrArgChange: true }
-    )
-
     return (
 		<Row className="shadow m-0 mb-3 p-0 py-3 match-row bg-white">
 			<Col md={2} className="d-flex p-0">
@@ -46,28 +38,9 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 			<Col
 				md={2}
 				xl={1}
-				className="d-flex flex-column justify-content-center align-items-center"
+				className="d-flex flex-column justify-content-start align-items-center"
 			>
-				<div
-					className="d-flex justify-content-center align-items-center"
-					style={{
-						width: "60px",
-						height: "60px",
-						objectFit: "contain",
-					}}
-				>
-					{homeError && <Image alt="logo" src={noLogo} />}
-					{homeLoading && (
-						<Placeholder
-							as="div"
-							anumation="glow"
-							className="h-100 w-100"
-						>
-							<Placeholder xs={12} className="h-100 w-100" />
-						</Placeholder>
-					)}
-					{homeLogo && <Image alt="logo" src={homeLogo} />}
-				</div>
+				<LogoComponent height={60} width={60} src={props.homeLogo} />
 				<span className="text-uppercase text-center">{props.home}</span>
 				<small className="text-uppercase text-center text-secondary">
 					{props.homeFrom}
@@ -95,28 +68,9 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 			<Col
 				md={2}
 				xl={1}
-				className="d-flex flex-column justify-content-center align-items-center"
+				className="d-flex flex-column justify-content-start align-items-center"
 			>
-				<div
-					className="d-flex justify-content-center align-items-center"
-					style={{
-						width: "60px",
-						height: "60px",
-						objectFit: "contain",
-					}}
-				>
-					{guestError && <Image alt="logo" src={noLogo} />}
-					{guestLoading && (
-						<Placeholder
-							as="div"
-							anumation="glow"
-							className="h-100 w-100"
-						>
-							<Placeholder xs={12} className="h-100 w-100" />
-						</Placeholder>
-					)}
-					{guestLogo && <Image alt="logo" src={guestLogo} />}
-				</div>
+				<LogoComponent height={60} width={60} src={props.guestLogo} />
 				<span className="text-uppercase text-center">
 					{props.guest}
 				</span>
@@ -124,7 +78,11 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 					{props.guestFrom}
 				</small>
 			</Col>
-			<Col md={1} xl={3} className="d-flex justify-content-center align-items-center">
+			<Col
+				md={1}
+				xl={3}
+				className="d-flex justify-content-center align-items-center"
+			>
 				{props.continous && (
 					<NavLink
 						to={`/match/${props.id}`}
