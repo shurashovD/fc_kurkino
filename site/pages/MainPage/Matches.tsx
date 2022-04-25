@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Button, Col, Container, Placeholder, Row } from "react-bootstrap"
-import { useMatchesQuery } from "../../app/mainPage.servie"
+import { useMatchesQuery } from "../../app/mainPage.service"
 import MatchCard from "../../components/MatchCard"
 
 const Matches = () => {

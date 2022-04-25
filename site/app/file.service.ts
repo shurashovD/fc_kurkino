@@ -28,11 +28,24 @@ const fileApi = createApi({
 						),
 			}),
 		}),
+		load: build.mutation<string, string>({
+			query: (path) => ({
+				url: `/static?file=${path}`,
+				responseHandler: (res) =>
+					res
+						.blob()
+						.then((blob) =>
+							URL.createObjectURL(
+								new File([blob], path.split("/").pop() || "")
+							)
+						),
+			}),
+		}),
 	}),
 	reducerPath: "fileApi",
 	tagTypes: ["intro"],
 })
 
-export const { useStaticQuery, useUploadQuery } = fileApi
+export const { useStaticQuery, useUploadQuery, useLoadMutation } = fileApi
 
 export default fileApi

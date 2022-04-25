@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Carousel, Container } from "react-bootstrap"
-import { useBirthdaysQuery } from "../../app/mainPage.servie"
+import { useBirthdaysQuery } from "../../app/mainPage.service"
 import BirthdayCarouselItem from "./BirthdayCarouselItem"
 import BirthdayItem from "./BirthdayItem"
 

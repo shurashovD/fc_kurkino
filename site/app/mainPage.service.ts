@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IBirthday, ICoach, IFootballer, IMatch, IMatchPhoto } from '../../shared'
+import { IBirthday, IMatch, IMatchPhoto } from '../../shared'
 
-const mainPagehApi = createApi({
+const mainPageApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: "/api/site/main-page" }),
 	endpoints: (build) => ({
 		matches: build.query<IMatch[], undefined>({
@@ -17,10 +17,10 @@ const mainPagehApi = createApi({
 			providesTags: () => ['birthdays']
 		}),
 	}),
-	reducerPath: "matchApi",
+	reducerPath: "mainPageApi",
 	tagTypes: ["matches", "photos", 'birthdays'],
 })
 
-export const { useBirthdaysQuery, useMatchesQuery, usePhotosQuery } = mainPagehApi
+export const { useBirthdaysQuery, useMatchesQuery, usePhotosQuery } = mainPageApi
 
- export default mainPagehApi
+ export default mainPageApi

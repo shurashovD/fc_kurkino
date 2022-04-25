@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Card, Col, Image, Placeholder, Row } from "react-bootstrap"
 import { NavLink } from 'react-router-dom'
 import { useStaticQuery } from '../app/file.service'
-import noImage from '../img/no-image.jpg'
+import noImage from '../img/no-logo.svg'
 
 interface IMatchCardProps {
 	id: string
@@ -100,7 +100,7 @@ const MatchCard: FC<IMatchCardProps> = ({ id, continous, date, home, guest, home
 					<small>{place}</small>
 				</p>
 				<div className="text-center mt-auto">
-					{continous && (
+					{(id !== '') && continous && (
 						<NavLink
 							to={`/match/${id}`}
 							className="d-flex justify-content-center align-items-center"

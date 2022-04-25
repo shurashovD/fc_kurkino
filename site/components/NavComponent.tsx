@@ -66,9 +66,9 @@ const NavComponent = () => {
 									О клубе
 								</NavLink>
 								<NavLink
-									to="/matches"
+									to="/playbill"
 									className={`mx-lg-3 text-uppercase text-${
-										pathname === "/matches"
+										pathname === "/playbill"
 											? "success"
 											: "white"
 									}`}
@@ -172,9 +172,9 @@ const NavComponent = () => {
 						</p>
 						<p className="text-center text-uppercase">
 							<NavLink
-								to="/matches"
+								to="/playbill"
 								className={`mx-lg-3 text-${
-									pathname === "/matches"
+									pathname === "/playbill"
 										? "success"
 										: "white"
 								}`}

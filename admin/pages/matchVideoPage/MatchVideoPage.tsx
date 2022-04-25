@@ -23,7 +23,7 @@ const MatchVideoPage = () => {
 						<Table>
 							<thead>
 								<tr className="align-middle text-center">
-									<th>Имя файла</th>
+									<th>Ссылка на видео</th>
 									<th>Действие</th>
 								</tr>
 							</thead>
@@ -37,7 +37,7 @@ const MatchVideoPage = () => {
 								))}
 							</tbody>
 							<tfoot>
-								<Footer id={id || ""} prefix={match.homeTeam.title + '-' + match.guestTeam.title} />
+								<Footer id={id || ""} />
 							</tfoot>
 						</Table>
 					</Col>

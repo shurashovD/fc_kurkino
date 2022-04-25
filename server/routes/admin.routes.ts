@@ -52,4 +52,19 @@ router.get('/panel', async (req, res) => {
     }
 })
 
+router.get('/logout', (req, res) => {
+    try {
+        req.session.destroy((err) => {
+            if ( err ) {
+                throw err
+            }
+            return res.redirect('/')
+        })
+    }
+    catch (e) {
+        console.log(e)
+        return res.send('Что-то пошло не так...')
+    }
+})
+
 export default router

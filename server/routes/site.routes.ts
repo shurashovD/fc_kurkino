@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { ICoach, IFootballer, IMatch, IMatchPhoto, ITeam } from './../../shared/index.d';
+import { ICoach, IFootballer, IMatch, IMatchPage, IMatchPhoto, ITeam, ITeamPage } from './../../shared/index.d';
 import { Request, Router } from "express"
 import path from 'path'
 import MatchModel from '../models/matchModel'
@@ -176,6 +176,160 @@ router.get('/main-page/birthdays', async (req, res) => {
 	catch (e) {
 		console.log(e)
 		return res.json({ message: 'Что-то пошло не так...' })
+	}
+})
+
+router.get("/match-page/futures", async (req, res) => {
+	try {
+		const year = new Date().getFullYear()
+		const gte = new Date()
+		const lte = `${year}-12-31`
+		const matches = await MatchModel.find({
+			date: { $gte: gte, $lte: lte },
+			archived: false,
+		})
+			.populate([
+				{ path: "homeTeam", model: TeamModel },
+				{ path: "guestTeam", model: TeamModel },
+			])
+			.sort({ date: 1 })
+
+		const result = matches.reduce<IMatchPage[]>((arr, item) => {
+			const { date } = item
+			const month = new Date(Date.parse(date.toString())).getMonth() + 1
+			const index = arr.findIndex(item => item.month === month)
+			if ( index === -1 ) {
+				return arr.concat({
+					month,
+					matches: [item]
+				})
+			}
+			arr[index].matches.push(item)
+			return arr
+		}, [])
+		return res.json(result)
+	} catch (e) {
+		console.log(e)
+		return res.status(500).send("Что-то пошло не так...")
+	}
+})
+
+router.get("/match-page/continous", async (req, res) => {
+	try {
+		const year = new Date().getFullYear()
+		const gte = `${year}-01-01`
+		const lte = new Date()
+		const matches = await MatchModel.find({
+			date: { $gte: gte, $lte: lte },
+			archived: false,
+		})
+			.populate([
+				{ path: "homeTeam", model: TeamModel },
+				{ path: "guestTeam", model: TeamModel },
+			])
+			.sort({ date: 1 })	
+		
+		const result = matches.reduce<IMatchPage[]>((arr, item) => {
+			const { date } = item
+			const month = new Date(Date.parse(date.toString())).getMonth() + 1
+			const index = arr.findIndex((item) => item.month === month)
+			if (index === -1) {
+				return arr.concat({
+					month,
+					matches: [item],
+				})
+			}
+			arr[index].matches.push(item)
+			return arr
+		}, [])
+		return res.json(result)
+	} catch (e) {
+		console.log(e)
+		return res.status(500).send("Что-то пошло не так...")
+	}
+})
+
+router.get("/match-page/match/:id", async (req, res) => {
+	try {
+		const {id} = req.params
+		const match = await MatchModel.findById(id)
+			.populate([
+				{ path: "homeTeam", model: TeamModel },
+				{ path: "guestTeam", model: TeamModel },
+			])
+
+		if ( !match ) {
+			return res.status(500).json({ messsage: 'Матч не найден' })
+		}
+
+		return res.json(match)
+	} catch (e) {
+		console.log(e)
+		return res.status(500).send("Что-то пошло не так...")
+	}
+})
+
+router.get("/team-page", async (req, res) => {
+	try {
+		const init: ITeamPage[] = [
+			{ role: "Вратари", footballers: [] },
+			{ role: "Защитники", footballers: [] },
+			{ role: "Полузащитники", footballers: [] },
+			{ role: "Нападающие", footballers: [] },
+		]
+
+		const team = await FootballerModel.find({ archived: false })
+
+		const result = team.reduce((arr, item) => {
+			const firstLiteral = item.post?.substring(0, 1).toLocaleLowerCase()
+			if ( !firstLiteral ) return arr
+
+			const index = arr.findIndex(({ role }) => 
+				(role.substring(0, 1).toLocaleLowerCase() === firstLiteral)
+			)
+			if ( index === -1 ) return arr
+
+			let age = 0, ageDescription = 'лет'
+			if ( item.birthday ) {
+				const now = new Date()
+				const nowYear = now.getFullYear()
+				const nowMonth = now.getMonth() + 1
+				const nowDate = now.getDate()
+ 				const birthYear = new Date(item.birthday.toString()).getFullYear()
+				const birthMonth = new Date(item.birthday.toString()).getMonth() + 1
+				const birthDate = new Date(item.birthday.toString()).getDate()
+				const haveCelebrate = Date.parse(`1970-${birthMonth}-${birthDate}`) > Date.parse(`1970-${nowMonth}-${nowDate}`)
+				age = (haveCelebrate ? 0 : -1) + nowYear - birthYear
+				const reminder = (age - 1) % 10
+				if ( reminder < 4 ) ageDescription = 'года'
+				if ( reminder === 0 ) ageDescription = 'год'
+			}
+
+			const description = `
+				${item.post || ""}${age > 0 ? `, ${age} ${ageDescription}` : ""}
+			`
+
+			arr[index]?.footballers?.push({
+				id: item._id.toString(), name: item.name, photo: item.avatar, number: item.number, description
+			})
+			return arr
+		}, init)
+
+		return res.json(result)
+	} catch (e) {
+		console.log(e)
+		return res.status(500).send("Что-то пошло не так...")
+	}
+})
+
+router.get('/coach-page', async (req, res) => {
+	try {
+		const coaches = await CoachModel.find({ archived: false })
+		return res.json(coaches)
+	}
+	catch (e) {
+		console.log(e)
+		return res.status(500).json({ message: 'Что-то пошло не так...' })
 	}
 })
 

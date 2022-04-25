@@ -86,6 +86,22 @@ export interface IBirthday {
 	today: boolean
 }
 
+export interface IMatchPage {
+	month: number
+	matches: IMatch[]
+}
+
+export interface ITeamPage {
+	role: string
+	footballers: {
+		id: string
+		name: string
+		number?: number
+		photo?: string
+		description?: string
+	}[]
+}
+
 declare module "express-session" {
 	interface SessionData {
 		admin: boolean

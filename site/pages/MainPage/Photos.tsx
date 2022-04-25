@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Carousel, Col, Container, Row } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
-import { usePhotosQuery } from "../../app/mainPage.servie"
+import { usePhotosQuery } from "../../app/mainPage.service"
 import PhotoCarouselItem from "./PhotoCarouselItem"
 import PhotoItem from "./PhotoItem"
 

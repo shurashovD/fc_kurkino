@@ -78,21 +78,24 @@ const matchApi = createApi({
 			}),
 			invalidatesTags: ["match"],
 		}),
-		videos: build.mutation<IMatch, { body: { file: string }; id: string }>({
+		videos: build.mutation<IMatch, { body: {link: string}, id: string }>({
 			query: ({ body, id }) => ({
 				body,
 				method: "PUT",
 				url: `/video/${id}`,
 			}),
-			invalidatesTags: ['match']
+			invalidatesTags: ["match"],
 		}),
-		removeVideos: build.mutation<IMatch, { body: { files: string[] }; id: string }>({
+		removeVideos: build.mutation<
+			IMatch,
+			{ body: { files: string[] }; id: string }
+		>({
 			query: ({ body, id }) => ({
 				body,
 				method: "DELETE",
 				url: `/video/${id}`,
 			}),
-			invalidatesTags: ['match']
+			invalidatesTags: ["match"],
 		}),
 	}),
 	reducerPath: "matchApi",

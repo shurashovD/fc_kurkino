@@ -39,7 +39,7 @@ const Intro = () => {
 						width="100%"
 					/>
 					<div
-						className="position-absolute bottom-0 bg-primary bg-opacity-75 p-3 px-4 m-0 d-none d-lg-block"
+						className="position-absolute bottom-0 bg-primary bg-opacity-75 p-3 px-4 m-0 d-none d-lg-none"
 						style={{ left: "62%" }}
 					>
 						<p className="text-dark mb-2">Последние новости:</p>

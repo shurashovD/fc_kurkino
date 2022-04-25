@@ -1,16 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
+import coachPageApi from "./coachPage.service";
 import fileApi from "./file.service";
-import mainPagehApi from "./mainPage.servie";
+import mainPageApi from "./mainPage.service";
+import matchApi from "./matchPage.service";
+import teamPageApi from "./teamPage.service";
 
 const store = configureStore({
 	reducer: {
+		[coachPageApi.reducerPath]: coachPageApi.reducer,
 		[fileApi.reducerPath]: fileApi.reducer,
-		[mainPagehApi.reducerPath]: mainPagehApi.reducer,
+		[mainPageApi.reducerPath]: mainPageApi.reducer,
+		[matchApi.reducerPath]: matchApi.reducer,
+		[teamPageApi.reducerPath]: teamPageApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) => [
 		...getDefaultMiddleware(),
+		coachPageApi.middleware,
 		fileApi.middleware,
-		mainPagehApi.middleware,
+		mainPageApi.middleware,
+		matchApi.middleware,
+		teamPageApi.middleware,
 	],
 })
 

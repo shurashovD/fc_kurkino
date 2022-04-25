@@ -39,7 +39,7 @@ const Item: FC<IItemProps> = ({ id, src }) => {
 		<tr className="align-middle">
 			<td>
 				<Button variant="link" onClick={handler} disabled={ src === playerSrc }>
-                    {src.split("/").pop()}
+                    {src}
                 </Button>
 			</td>
 			<td className="text-center">

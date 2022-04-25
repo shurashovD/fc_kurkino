@@ -212,7 +212,7 @@ router.delete("/photos/:id", bodyParser.json(), async (req: Request<{id: string}
 	}
 })
 
-router.put('/video/:id', async (req, res) => {
+router.put('/video/:id', bodyParser.json(), async (req, res) => {
 	try {
 		const { link: videoPath } = req.body
 		const { id } = req.params
