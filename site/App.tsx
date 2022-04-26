@@ -15,7 +15,7 @@ const App = () => {
 		<BrowserRouter>
 			<Container
 				fluid
-				className="p-0"
+				className="p-0 min-vh-100 d-flex flex-column justify-content-start align-items-stretch"
 			>
 				<NavComponent />
 				<Routes>

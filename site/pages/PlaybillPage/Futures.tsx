@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react"
-import { Container } from "react-bootstrap"
+import { Container, Spinner } from "react-bootstrap"
 import { useFuturesQuery } from "../../app/matchPage.service"
 import MactchCarousel from "./MatchCarousel"
 import MatchRow from "./MatchRow"
 
 const Futures = () => {
-    const { data } = useFuturesQuery(undefined, {
+    const { data, isLoading, isError } = useFuturesQuery(undefined, {
 		refetchOnMountOrArgChange: true,
 	})
 	const formatter = useRef(
@@ -32,8 +32,14 @@ const Futures = () => {
 
 	return (
 		<Container>
-			{data &&
-				data.map(({ matches, month }) => (
+			{ isLoading && <Spinner animation="border" variant="secondary" className="mx-auto my-5" /> }
+			{ !isLoading && !isError && (data?.length === 0) && (
+				<p className="bg-secondary text-center text-uppercase mx-3 my-5">
+					Скоро здесь появятся матчи сезона
+				</p>
+			) }
+			{ !isError && !isLoading && data && data?.length > 0 &&
+				data?.map(({ matches, month }) => (
 					<Container key={`month_${month}`}>
 						<h3 className="mt-5 mb-4 text-uppercase">
 							{formatter.current.format(

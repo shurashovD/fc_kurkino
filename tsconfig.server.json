@@ -18,5 +18,8 @@
         {
             "path": "./shared"
         }
+    ],
+    "typeRoots": [
+        "./types"
     ]
 }

@@ -1,13 +1,11 @@
-import { MouseEvent, useEffect, useState } from "react"
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap"
+import { MouseEvent, useState } from "react"
+import { Button, Col, Container, Row } from "react-bootstrap"
 import { useTeamQuery } from "../../app/teamPage.service"
-import FootballerCarousel from "./FootballerCarousel"
 import Item from "./Item"
 
 const TeamPage = () => {
     const { data } = useTeamQuery(undefined, { refetchOnMountOrArgChange: true })
     const [tabIndex, setTabIndex] = useState(0)
-	const [mobile, setMobile] = useState(true)
 
     const tabHandler = (event: MouseEvent<HTMLButtonElement>) => {
         const { index } = event.currentTarget.dataset
@@ -16,12 +14,8 @@ const TeamPage = () => {
 		}
     }
 
-    useEffect(() => {
-        if (window.innerWidth > 576) setMobile(false)
-    }, [])
-
     return (
-		<Container fluid className="min-vh-100 px-0" id="team-page">
+		<Container fluid className="px-0" id="team-page">
 			{data && (
 				<Container>
 					<Row className="justify-content-center justify-content-sm-start">
@@ -72,36 +66,29 @@ const TeamPage = () => {
 								<h3 className="mt-5 mb-1 text-uppercase">
 									{role}
 								</h3>
-								{mobile ? (
-									<FootballerCarousel
-										footballers={footballers}
-									/>
-								) : (
-									<Row md={2} xl={3} className="g-4 mb-5">
-										{footballers.map(
-											({
-												id,
-												name,
-												number,
-												description,
-												photo,
-											}) => (
-												<Col key={id}>
-													<Item
-														name={name}
-														photo={photo}
-														number={number?.toString()}
-														description={
-															description
-														}
-													/>
-												</Col>
-											)
-										)}
-									</Row>
-								)}
+								<Row xs={1} md={2} xl={3} className="g-5 mb-5">
+									{footballers.map(
+										({
+											id,
+											name,
+											number,
+											description,
+											photo,
+										}) => (
+											<Col key={id}>
+												<Item
+													name={name}
+													photo={photo}
+													number={number?.toString()}
+													description={description}
+												/>
+											</Col>
+										)
+									)}
+								</Row>
 							</Container>
-						))}
+						))
+					}
 				</Container>
 			)}
 		</Container>

@@ -4,15 +4,24 @@ import { NavLink } from "react-router-dom"
 import { useUploadQuery } from "../../app/file.service"
 
 const Intro = () => {
-    const { data: src, isLoading, isError } = useUploadQuery("intro.png")
-    const { data: srcMobile, isLoading: mobileLoading, isError: mobileError } = useUploadQuery("intro-mobile.png")
-    const [mobile, setMobile] = useState(true)
+	const [mobile, setMobile] = useState(true)
+    const { data: src, isLoading, isError, refetch } = useUploadQuery("intro.png", { skip: mobile })
+    const {
+		data: srcMobile, isLoading: mobileLoading, isError: mobileError, refetch: mobileRefetch
+	} = useUploadQuery("intro-mobile.png", { skip: !mobile })
     const [height, setHeight] = useState<number | string>('auto')
 
     useEffect(() => {
         const { innerWidth, innerHeight } = window
         const mobile = innerWidth < 768
         setMobile(mobile)
+
+		if ( mobile ) {
+			mobileRefetch()
+		}
+		else {
+			refetch()
+		}
         
         if (!mobile && (innerWidth / innerHeight > 1.5)) {
 			setHeight(innerHeight)

@@ -13,6 +13,9 @@ import siteRoutes from './routes/site.routes'
 import { engine } from 'express-handlebars'
 import authMiddleware from './middleware/auth.middleware'
 import { readFile } from 'fs/promises'
+import { renderToString } from 'react-dom/server'
+import React from 'react'
+import App from '../site/App'
 
 const PORT = 3000
 
@@ -68,6 +71,7 @@ app.get("*", async (req, res) => {
 			return res.redirect("/admin/panel")
 		}
 		const tempPath = path.join(__dirname, "static", "site", "index.html")
+		const component = renderToString(React.createElement(App))
 		const template = await readFile(tempPath, { encoding: "utf-8" })
 		return res.send(template)
 	} catch (e) {

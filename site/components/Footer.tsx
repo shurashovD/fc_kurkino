@@ -4,7 +4,7 @@ import Logo from '../img/logo.svg'
 
 const Footer = () => {
     return (
-		<Container fluid className="bg-dark m-0 p-3 pt-5">
+		<Container fluid className="bg-dark m-0 mt-auto p-3 pt-5">
 			<Container>
 				<Row>
 					<Col xs={12} md={2} className="text-center mb-5 mb-md-0">

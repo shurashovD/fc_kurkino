@@ -7,7 +7,7 @@ const PlaybillPage = () => {
 	const [tabIndex, setTabIndex] = useState(0)
 
 	return (
-		<Container fluid className="min-vh-100 px-0" id="match-page">
+		<Container fluid className="px-0" id="match-page">
 			<Container>
 				<Row>
 					<Col xs={"auto"}>

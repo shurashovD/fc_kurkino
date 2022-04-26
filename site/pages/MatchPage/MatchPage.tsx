@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap"
+import { useEffect, useRef, useState } from "react"
+import { Button, Carousel, Col, Container, Row, Spinner } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetMatchQuery } from "../../app/matchPage.service"
 import PhotoComponent from "../../components/PhotoComponent"
@@ -10,7 +10,7 @@ import MatchPlayer from "./MatchPlayer"
 const MatchPage = () => {
 	const {id} = useParams()
 	const navigate = useNavigate()
-	const { data: match } = useGetMatchQuery(id || '', {refetchOnMountOrArgChange: true})
+	const { data: match, isLoading } = useGetMatchQuery(id || '', {refetchOnMountOrArgChange: true})
 	const [mobile, setMobile] = useState(true)
 	const formatter = useRef(
 		new Intl.DateTimeFormat('ru', {
@@ -39,7 +39,8 @@ const MatchPage = () => {
 				/>
 				<span>назад</span>
 			</Button>
-			{match && !mobile && (
+			{ isLoading && <Spinner animation="border" variant="secondary" className="mx-auto my-5" /> }
+			{ !isLoading && match && !mobile && (
 				<Container>
 					<h3 className="text-uppercase mb-4">
 						{`Матч ${match.homeTeam.title} - ${match.guestTeam.title}`}
@@ -87,7 +88,7 @@ const MatchPage = () => {
 					)}
 				</Container>
 			)}
-			{match && mobile && (
+			{ !isLoading && match && mobile && (
 				<Container>
 					<h3 className="text-uppercase mb-4">
 						{`Матч ${match.homeTeam.title} - ${match.guestTeam.title}`}

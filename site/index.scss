@@ -163,7 +163,7 @@ button:focus,
 
 
 #intro-placeholder {
-  background-image: url("./img/intro-load.png");
+  background-image: url("./img/intro-load-mobile.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -375,12 +375,16 @@ button:focus,
 }
 
 @media (min-width: 992px) {
-    #header-logo {
+  #header-logo {
     transform: scale(1.65);
     position: relative;
     top: 2rem;
   }
 
+  #intro-placeholder {
+    background-image: url("./img/intro-load.png");
+  }
+  
   #main-matches {
     padding-top: 100px;
     padding-bottom: 125px;
