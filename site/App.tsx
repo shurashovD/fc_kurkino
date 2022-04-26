@@ -9,10 +9,12 @@ import MatchPage from "./pages/MatchPage/MatchPage"
 import PlaybillPage from "./pages/PlaybillPage/PlaybillPage"
 import TeamPage from "./pages/TeamPage/TeamPage"
 import Footer from "./components/Footer"
+import store from './app/store'
+import { Provider } from "react-redux"
 
 const App = () => {
-    return (
-		<BrowserRouter>
+	return (
+		<Provider store={store}>
 			<Container
 				fluid
 				className="p-0 min-vh-100 d-flex flex-column justify-content-start align-items-stretch"
@@ -29,7 +31,7 @@ const App = () => {
 				</Routes>
 				<Footer />
 			</Container>
-		</BrowserRouter>
+		</Provider>
 	)
 }
 

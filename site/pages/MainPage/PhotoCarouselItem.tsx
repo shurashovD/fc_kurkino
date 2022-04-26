@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useCallback, useState } from "react"
 import { Placeholder } from "react-bootstrap"
 import { useStaticQuery } from "../../app/file.service"
 

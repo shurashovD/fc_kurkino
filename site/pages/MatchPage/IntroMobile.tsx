@@ -46,7 +46,7 @@ const IntroMobile: FC<IIntroProps> = (props) => {
                     <Col xs={5} 
                         className="d-flex flex-column align-items-center pt-1"
                     >
-                        <LogoComponent height={100} src={props.homeLogo} width={100} />
+                        <LogoComponent height={100} src={props.guestLogo} width={100} />
                         <h4 className="p-0 text-center text-uppercase m-0 mt-2">
                             {props.guest}
                         </h4>

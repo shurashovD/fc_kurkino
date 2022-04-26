@@ -12,8 +12,7 @@ const Intro = () => {
     const [height, setHeight] = useState<number | string>('auto')
 
     useEffect(() => {
-        const { innerWidth, innerHeight } = window
-        const mobile = innerWidth < 768
+        const mobile = window?.innerWidth < 768
         setMobile(mobile)
 
 		if ( mobile ) {
@@ -23,8 +22,8 @@ const Intro = () => {
 			refetch()
 		}
         
-        if (!mobile && (innerWidth / innerHeight > 1.5)) {
-			setHeight(innerHeight)
+        if (!mobile && (window?.innerWidth / window?.innerHeight > 1.5)) {
+			setHeight(window?.innerHeight)
 		}
     }, [])
 

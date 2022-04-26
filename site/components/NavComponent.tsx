@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { Button, CloseButton, Col, Container, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
+import { CloseButton, Col, Container, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import Logo from "./../img/logo.svg"
 
 const NavComponent = () => {
-    const { pathname } = useLocation()
+	const {pathname} = useLocation()
 	const [show, setShow] = useState(false)
     const [bgOpacity, setBgOpacity] = useState(true)
 	const [sticky, setSticky] = useState(false)

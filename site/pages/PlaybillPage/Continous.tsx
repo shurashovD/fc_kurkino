@@ -23,7 +23,7 @@ const Continous = () => {
 	const [mobile, setMobile] = useState(true)
 
 	useEffect(() => {
-		if (window.innerWidth > 576) {
+		if (window?.innerWidth > 576) {
 			setMobile(false)
 		}
 	}, [])

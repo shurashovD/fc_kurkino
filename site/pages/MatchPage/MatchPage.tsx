@@ -23,7 +23,7 @@ const MatchPage = () => {
 	)
 
 	useEffect(() => {
-		if ( window.innerWidth > 576 ) setMobile(false)
+		if ( window?.innerWidth > 576 ) setMobile(false)
 	}, [])
 
 	return (
