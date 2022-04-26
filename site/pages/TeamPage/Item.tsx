@@ -8,7 +8,7 @@ interface IItemProps {
     photo?: string
 }
 
-const Item: FC<IItemProps> = ({ description, name, number = 15, photo }) => {
+const Item: FC<IItemProps> = ({ description, name, number, photo }) => {
     return (
 		<div className="position-relative h-100 shadow-sm d-flex flex-column justify-content-end">
 			<PhotoComponent src={photo} />

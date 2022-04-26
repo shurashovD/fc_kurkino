@@ -67,7 +67,7 @@ const IntroMobile: FC<IIntroProps> = (props) => {
 					</Col>
 				</Row>
 				<p className="text-secondary text-center text-uppercase mt-4">
-					{props.place}
+					<small>{props.place}</small>
 				</p>
 			</div>
 		</Container>

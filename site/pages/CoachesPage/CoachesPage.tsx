@@ -1,15 +1,16 @@
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row, Spinner } from "react-bootstrap"
 import { useSquadQuery } from "../../app/coachPage.service"
 import PhotoComponent from "../../components/PhotoComponent"
 
 const CoachesPage = () => {
-    const { data } = useSquadQuery(undefined, { refetchOnMountOrArgChange: true })
+    const { data, isLoading } = useSquadQuery(undefined, { refetchOnMountOrArgChange: true })
 
     return (
 		<Container id="coaches-page" fluid>
-			{data && (
+            { isLoading && <Spinner animation="border" variant="secondary" className="mx-auto my-5" /> }
+			{!isLoading && data && (
 				<Container>
-					<h3 className="mb-3 text-uppercase">Тренерский штаб</h3>
+					<h3 className="mb-3 mb-4 text-uppercase">Тренерский штаб</h3>
 					<Row xs={1} md={2} lg={3} className="g-4">
                         {
                             data.map((item) => (
@@ -24,7 +25,7 @@ const CoachesPage = () => {
                                             className="position-absolute bottom-0 start-0 end-0 bg-white bg-opacity-75 
                                                 text-center m-0 p-2 d-flex flex-column align-items-center"
                                         >
-                                            <span className="text-center text-uppercase ibm-bold">
+                                            <span className="text-center text-uppercase ibm-bold lh-1">
                                                 {
                                                     item.name.trimStart().split(' ').map((str, index) => (
                                                         <span key={`${item._id.toString()}_${index}_name`}>
