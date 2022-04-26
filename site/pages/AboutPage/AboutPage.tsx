@@ -18,7 +18,7 @@ const AboutPage = () => {
 								className="text-center text-uppercase bg-white bg-opacity-75 
                                 position-absolute bottom-0 start-0 end-0 m-0 p-2 lh-sm"
 							>
-								<span className="ibm-bold">
+								<span className="ibm-bold fw-bold">
 									Желага
 									<br />
 									игорь витальевич

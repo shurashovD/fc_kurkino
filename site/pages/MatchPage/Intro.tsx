@@ -17,7 +17,7 @@ interface IIntroProps {
 
 const Intro: FC<IIntroProps> = (props) => {
 	return (
-		<Row className="justify-content-center align-items-stretch bg-primary m-0 p-4 position-relative mb-5">
+		<Row className="justify-content-center align-items-stretch bg-primary m-0 p-4 position-relative mb-5 match-detail-intro">
 			<Col
 				md={4}
 				xl={3}
@@ -27,7 +27,7 @@ const Intro: FC<IIntroProps> = (props) => {
 				<h4 className="p-0 text-center text-uppercase m-0 mt-2">
 					{props.home}
 				</h4>
-				<p className="p-0 text-center text-white m-0 mt-auto">
+				<p className="p-0 text-center text-white m-0 mt-auto text-uppercase">
 					{props.homeFrom}
 				</p>
 			</Col>
@@ -35,7 +35,7 @@ const Intro: FC<IIntroProps> = (props) => {
 				md={4}
 				className="d-flex flex-column justify-content-center align-items-center"
 			>
-				<span className="bg-dark ibm-medium fs-3 text-white text-center p-3 py-1 mb-3">
+				<span className="bg-dark ibm-medium fs-3 text-white text-center p-4 py-2 mb-3">
 					{`${props.homeScore?.toString() || "-"}:${
 						props.guestScore?.toString() || "-"
 					}`}
@@ -53,11 +53,11 @@ const Intro: FC<IIntroProps> = (props) => {
 				<h4 className="p-0 text-center text-uppercase m-0 mt-2">
 					{props.guest}
 				</h4>
-				<p className="p-0 text-center text-white m-0 mt-auto">
+				<p className="p-0 text-center text-white m-0 mt-auto text-uppercase">
 					{props.guestFrom}
 				</p>
 			</Col>
-			<span className="position-absolute top-0 start-50 bg-light p-2 translate-middle-x text-center col-2">
+			<span className="position-absolute top-0 start-50 bg-light p-2 p-md-4 translate-middle-x text-center text-uppercase col-2">
 				{props.date}
 			</span>
 		</Row>

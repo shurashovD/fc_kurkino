@@ -21,7 +21,7 @@ const BirthdayCarouselItem: FC<IBirthdayItemProps> = ({date, name, post, src, to
 
     return (
 		<div
-			className={`text-center position-relative birthday-plate-${
+			className={`text-center birthday-plate-${
 				today ? "primary" : "secondary"
 			} m-0 p-0 py-4`}
 		>
@@ -99,14 +99,14 @@ const BirthdayCarouselItem: FC<IBirthdayItemProps> = ({date, name, post, src, to
 				</div>
 			</div>
 			<p
-				className={`ibm-bold text-uppercase text-center fs-4 mx-3
+				className={`ibm-bold text-uppercase text-center fs-4 mx-3 mb-0
                 text-${today ? "white" : "secondary"}
             `}
 			>
 				{name}
 			</p>
 			<p
-				className={`text-uppercase text-center mx-3
+				className={`text-uppercase text-center mx-3 mt-0
                     text-${today ? "white" : "secondary"}
                 `}
 			>

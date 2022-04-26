@@ -14,7 +14,7 @@ const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src }) => {
 
     return (
 		<div
-			className="d-flex justify-content-center align-items-center bg-white m-0 border"
+			className="d-flex justify-content-center align-items-center bg-white m-0"
 			style={{
 				width: `${width.toString()}px`,
 				height: `${height.toString()}px`,

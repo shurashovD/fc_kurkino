@@ -14,7 +14,7 @@ const CoachesPage = () => {
                         {
                             data.map((item) => (
                                 <Col key={item._id.toString()}>
-                                    <div className="position-relative bg-light"
+                                    <div className="position-relative bg-light h-100"
                                         style={{ minHeight: '200px' }}
                                     >
                                         <PhotoComponent
@@ -25,7 +25,14 @@ const CoachesPage = () => {
                                                 text-center m-0 p-2 d-flex flex-column align-items-center"
                                         >
                                             <span className="text-center text-uppercase ibm-bold">
-                                                {item.name}
+                                                {
+                                                    item.name.trimStart().split(' ').map((str, index) => (
+                                                        <span key={`${item._id.toString()}_${index}_name`}>
+                                                            <span>{str}</span>
+                                                            {(index === 0) ? <br/> : <span>{" "}</span>}
+                                                        </span>
+                                                    ))
+                                                }
                                             </span>
                                             <span className="text-center text-secondary text-uppercase">
                                                 {item.post}

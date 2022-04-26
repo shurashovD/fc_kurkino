@@ -63,7 +63,7 @@ const TeamPage = () => {
 						)
 						.map(({ role, footballers }, index) => (
 							<Container key={`team_${index}`}>
-								<h3 className="mt-5 mb-1 text-uppercase">
+								<h3 className="mt-5 mb-4 text-uppercase">
 									{role}
 								</h3>
 								<Row xs={1} md={2} xl={3} className="g-5 mb-5">

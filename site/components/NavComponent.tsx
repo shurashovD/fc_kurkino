@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { CloseButton, Col, Container, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
+import { CloseButton, Col, Container, Image, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import Logo from "./../img/logo.svg"
 
@@ -33,28 +33,32 @@ const NavComponent = () => {
 			<Container className="p-0">
 				<Row className="w-100 m-0 p-0">
 					<Col xs={2}>
-						<Navbar.Brand>
-							<NavLink to="/">
-								<img
-									alt="logo"
-									src={Logo}
-									width="98"
-									className="d-md-none"
-									id="header-logo"
-								/>
-								<img
-									alt="logo"
-									src={Logo}
-									width="90"
-									className="d-none d-md-block"
-									id="header-logo"
-								/>
-							</NavLink>
-						</Navbar.Brand>
+						<img
+							alt="logo"
+							src={Logo}
+							width="98"
+							className="d-md-none"
+							id="header-logo"
+						/>
+						<img
+							alt="logo"
+							src={Logo}
+							width="120"
+							className="d-none d-md-block m-0"
+							id="header-logo"
+						/>
 					</Col>
 					<Col xs={6} lg={10} xl={8}>
-						<Navbar.Collapse className="h-100 d-none d-lg-block">
-							<Nav className="w-100 justify-content-lg-between">
+						<Navbar.Collapse className="h-100 d-none d-lg-block p-0">
+							<Nav className="w-100 justify-content-lg-between m-0">
+								<NavLink
+									to="/"
+									className={`mx-lg-3 text-uppercase text-${
+										pathname === "/" ? "success" : "white"
+									}`}
+								>
+									Главная
+								</NavLink>
 								<NavLink
 									to="/about"
 									className={`mx-lg-3 text-uppercase text-${
@@ -149,7 +153,7 @@ const NavComponent = () => {
 					id="offcanvasNavbar"
 					aria-labelledby="offcanvasNavbarLabel"
 					placement="end"
-					className="bg-dark w-100"
+					className="bg-dark w-100 d-lg-none"
 					show={show}
 				>
 					<Offcanvas.Header className="p-5 px-4 justify-content-end">
@@ -159,6 +163,17 @@ const NavComponent = () => {
 						/>
 					</Offcanvas.Header>
 					<Offcanvas.Body>
+						<p className="text-center text-uppercase">
+							<NavLink
+								to="/"
+								className={`mx-lg-3 text-${
+									pathname === "/" ? "success" : "white"
+								}`}
+								onClick={() => setShow(false)}
+							>
+								Главная
+							</NavLink>
+						</p>
 						<p className="text-center text-uppercase">
 							<NavLink
 								to="/about"

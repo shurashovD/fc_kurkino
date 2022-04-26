@@ -30,9 +30,9 @@ const MatchCard: FC<IMatchCardProps> = ({ id, continous, date, home, guest, home
 			>
 				{date}
 			</Card.Header>
-			<Card.Body className="p-4 pt-5 rounded-0 d-flex flex-column match-card-body">
+			<Card.Body className="p-4 pt-5 rounded-0 d-flex flex-column match-card-body border">
 				<Row xs={3}>
-					<Col className="d-flex flex-column align-items-center">
+					<Col className="d-flex flex-column align-items-center p-0">
 						{homeLoading && (
 							<Placeholder as="div" animation="glow">
 								<Placeholder
@@ -51,32 +51,32 @@ const MatchCard: FC<IMatchCardProps> = ({ id, continous, date, home, guest, home
 								<Image src={noImage} fluid />
 							</div>
 						)}
-						<p className="text-center text-uppercase lh-1 text-nowrap text-truncate">
+						<p className="text-center text-uppercase lh-1 text-nowrap text-truncate w-100">
 							{home}
 						</p>
 					</Col>
 					<Col className="d-flex flex-column justify-content-center">
 						{homeScore?.toString() && guestScore?.toString() ? (
 							<p className="ibm-medium fs-4 m-0 p-2 bg-dark text-center text-uppercase text-white py-0">
-								<span className="d-lg-none">
+								<span className="d-lg-none my-1">
 									{homeScore?.toString()}:
 									{guestScore?.toString()}
 								</span>
-								<span className="d-none d-lg-block fs-3">
+								<span className="d-none d-lg-block fs-3 my-1">
 									{homeScore?.toString()}:
 									{guestScore?.toString()}
 								</span>
 							</p>
 						) : (
-							<p className="ibm-medium fs-4 m-0 p-2 py-3 bg-light text-center text-uppercase py-0">
+							<p className="ibm-medium fs-4 m-0 bg-light text-center text-uppercase py-2 py-md-0">
 								<span className="d-lg-none">VS</span>
-								<span className="d-none d-lg-block fs-3">
+								<span className="d-none d-lg-block fs-3 my-1">
 									VS
 								</span>
 							</p>
 						)}
 					</Col>
-					<Col className="d-flex flex-column align-items-center">
+					<Col className="d-flex flex-column align-items-center p-0">
 						{guestLoading && (
 							<Placeholder as="div" animation="glow">
 								<Placeholder
@@ -95,16 +95,16 @@ const MatchCard: FC<IMatchCardProps> = ({ id, continous, date, home, guest, home
 								<Image src={noImage} fluid />
 							</div>
 						)}
-						<p className="text-center text-uppercase lh-1 text-nowrap text-truncate">
+						<p className="text-center text-uppercase lh-1 text-nowrap text-truncate w-100">
 							{guest}
 						</p>
 					</Col>
 				</Row>
-				<p className="text-center text-secondary text-uppercase lh-1">
+				<p className="text-center text-secondary text-uppercase lh-1 mt-2">
 					<small>{place}</small>
 				</p>
 				<div className="text-center mt-auto">
-					{id !== "" && continous && (
+					{(id !== "" && continous) ? (
 						<NavLink
 							to={`/match/${id}`}
 							className="d-flex justify-content-center align-items-center"
@@ -112,6 +112,8 @@ const MatchCard: FC<IMatchCardProps> = ({ id, continous, date, home, guest, home
 							<span>Смотреть детали</span>
 							<div className="arrow-right-primary rounded-circle mt-1" />
 						</NavLink>
+					) : (
+						<p>{" "}</p>
 					)}
 				</div>
 			</Card.Body>

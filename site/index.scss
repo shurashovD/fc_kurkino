@@ -161,6 +161,10 @@ button:focus,
   font-family: 'Noto-semi-bold';
 }
 
+#header-logo {
+    position: relative;
+    top: 20px;
+}
 
 #intro-placeholder {
   background-image: url("./img/intro-load-mobile.png");
@@ -317,6 +321,14 @@ button:focus,
   background-size: contain;
 }
 
+
+ .match-detail-intro {
+   background-image: url('./img/match-card-bgi.png');
+   background-repeat: no-repeat;
+   background-position: left bottom;
+   background-size: contain;
+ }
+
  #match-page {
    padding-top: 67px;
    padding-bottom: 400px;
@@ -376,9 +388,8 @@ button:focus,
 
 @media (min-width: 992px) {
   #header-logo {
-    transform: scale(1.65);
     position: relative;
-    top: 2rem;
+    top: 24px;
   }
 
   #intro-placeholder {
@@ -435,5 +446,12 @@ button:focus,
    background-size: 40%;
    background-position: right bottom;
    background-repeat: no-repeat;
+ }
+
+ .match-detail-intro {
+   background-image: url('./img/match-card-bgi.png');
+   background-repeat: no-repeat;
+   background-position: right bottom;
+   background-size: 30%;
  }
 }

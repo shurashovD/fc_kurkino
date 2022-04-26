@@ -21,19 +21,34 @@ const Footer = () => {
 						className="text-white d-flex flex-column"
 					>
 						<p className="text-uppercase m-0">Меню:</p>
-						<NavLink to="/" className="text-secondary footer-link mb-1">
+						<NavLink
+							to="/about"
+							className="text-secondary footer-link mb-1"
+						>
 							О клубе
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link mb-1">
+						<NavLink
+							to="/playbill"
+							className="text-secondary footer-link mb-1"
+						>
 							Матчи
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link mb-1">
+						<NavLink
+							to="/team-squad"
+							className="text-secondary footer-link mb-1"
+						>
 							Состав команды
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link mb-1">
+						<NavLink
+							to="/coach-squad"
+							className="text-secondary footer-link mb-1"
+						>
 							Тренерский штаб
 						</NavLink>
-						<NavLink to="/" className="text-secondary footer-link mb-1">
+						<NavLink
+							to="/contacts"
+							className="text-secondary footer-link mb-1"
+						>
 							Контакты
 						</NavLink>
 					</Col>
@@ -69,11 +84,7 @@ const Footer = () => {
 							обязательна.
 						</p>
 					</Col>
-					<Col
-						xs={12}
-						md={3}
-						className="d-flex"
-					>
+					<Col xs={12} md={3} className="d-flex">
 						<a
 							href="https://www.behance.net/natali_shurashova"
 							className="text-secondary footer-link mt-auto text-center text-md-start mx-auto mx-md-0"

@@ -20,10 +20,10 @@ interface IMatchRowInterface {
 
 const MatchRow: FC<IMatchRowInterface> = (props) => {
     return (
-		<Row className="shadow m-0 mb-3 p-0 py-3 match-row bg-white">
+		<Row className="shadow m-0 mb-3 p-0 py-4 match-row bg-white">
 			<Col md={2} className="d-flex p-0">
 				<p
-					className={`m-auto p-3 text-center w-100 
+					className={`m-auto p-3 py-4 text-center w-100 
                     text-${props.continous ? "dark" : "white"} 
                     bg-${props.continous ? "light" : "primary"} text-uppercase`}
 				>
@@ -31,16 +31,16 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 				</p>
 			</Col>
 			<Col md={3} xl={4} className="d-flex">
-				<p className="m-auto w-100 text-secondary text-uppercase text-center">
+				<small className="m-auto w-100 text-secondary text-uppercase text-center lh-sm">
 					{props.place}
-				</p>
+				</small>
 			</Col>
 			<Col
 				md={2}
 				xl={1}
 				className="d-flex flex-column justify-content-start align-items-center"
 			>
-				<LogoComponent height={60} width={60} src={props.homeLogo} />
+				<LogoComponent height={100} width={100} src={props.homeLogo} />
 				<span className="text-uppercase text-center">{props.home}</span>
 				<small className="text-uppercase text-center text-secondary">
 					{props.homeFrom}
@@ -48,7 +48,7 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 			</Col>
 			<Col md={2} xl={1} className="d-flex">
 				<p
-					className={`m-auto w-100 py-1 px-2 
+					className={`m-auto w-100 py-1 px-2 ibm-medium 
                         bg-${
 							props.homeScores && props.guestScore
 								? "dark"
@@ -70,7 +70,7 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
 				xl={1}
 				className="d-flex flex-column justify-content-start align-items-center"
 			>
-				<LogoComponent height={60} width={60} src={props.guestLogo} />
+				<LogoComponent height={100} width={100} src={props.guestLogo} />
 				<span className="text-uppercase text-center">
 					{props.guest}
 				</span>

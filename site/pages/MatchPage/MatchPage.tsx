@@ -37,7 +37,7 @@ const MatchPage = () => {
 					className="arrow-right-secondary mt-1"
 					style={{ transform: "rotate(180deg)" }}
 				/>
-				<span>назад</span>
+				<span className="text-uppercase">назад</span>
 			</Button>
 			{ isLoading && <Spinner animation="border" variant="secondary" className="mx-auto my-5" /> }
 			{ !isLoading && match && !mobile && (

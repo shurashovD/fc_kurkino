@@ -24,9 +24,6 @@ const Matches = () => {
 			return
 		}
 		setNumber(state => state - 1)
-		/*const scroll = carousel.current.querySelector('div')?.offsetWidth || 0
-
-		carousel.current.scrollLeft -= scroll*/
 	}
 
 	const nextHandler = () => {
@@ -34,9 +31,6 @@ const Matches = () => {
 			return
 		}
 		setNumber(state => state + 1)
-		/*const scroll = carousel.current.querySelector("div")?.offsetWidth || 0
-
-		carousel.current.scrollLeft += scroll*/
 	}
 
 	useEffect(() => {
