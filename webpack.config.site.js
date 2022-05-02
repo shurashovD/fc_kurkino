@@ -14,7 +14,7 @@ module.exports = {
             directory: path.join(__dirname, 'dist', 'static'),
         }
     },
-    mode: 'development',
+    mode: 'production',
     output: {
         assetModuleFilename: 'assets/[name][ext][query]',
         clean: true,
