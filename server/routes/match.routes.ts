@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
         const matches = await MatchModel.find({ archived: false }).populate([
 			{ path: "homeTeam", model: TeamModel },
 			{ path: "guestTeam", model: TeamModel },
-		])
+		]).sort({ data: 1 })
         return res.json(matches)
     }
     catch (e) {

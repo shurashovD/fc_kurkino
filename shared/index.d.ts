@@ -102,6 +102,12 @@ export interface ITeamPage {
 	}[]
 }
 
+export interface INewsInitialState {
+	date?: string
+	link?: string
+	title?: string
+}
+
 declare module "express-session" {
 	interface SessionData {
 		admin: boolean

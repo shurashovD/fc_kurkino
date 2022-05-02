@@ -6,7 +6,7 @@ const AboutPage = () => {
 		<Container id="about-page" fluid>
 			<Container>
 				<h3 className="mb-3 text-uppercase">Руководство</h3>
-				<Row xs={1} md={2} lg={3} classname="m-0">
+				<Row xs={1} md={2} lg={3} className="m-0">
 					<Col>
 						<div className="position-relative p-0">
 							<Image

@@ -227,7 +227,7 @@ router.get("/match-page/continous", async (req, res) => {
 				{ path: "homeTeam", model: TeamModel },
 				{ path: "guestTeam", model: TeamModel },
 			])
-			.sort({ date: 1 })	
+			.sort({ date: -1 })	
 		
 		const result = matches.reduce<IMatchPage[]>((arr, item) => {
 			const { date } = item

@@ -12,7 +12,7 @@ import adminRoutes from './routes/admin.routes'
 import siteRoutes from './routes/site.routes'
 import { engine } from 'express-handlebars'
 import authMiddleware from './middleware/auth.middleware'
-import { readFile } from 'fs/promises'
+import ssrRouter from './routes/ssr.routes'
 
 const PORT = 3000
 
@@ -62,16 +62,4 @@ app.use("/api/squad", authMiddleware, squadRoutes)
 app.use("/api/coach", authMiddleware, coachRoutes)
 
 
-app.get("*", async (req, res) => {
-	try {
-		if (req.session.admin) {
-			return res.redirect("/admin/panel")
-		}
-		const tempPath = path.join(__dirname, "static", "site", "index.html")
-		const template = await readFile(tempPath, { encoding: "utf-8" })
-		return res.send(template)
-	} catch (e) {
-		console.log(e)
-		return res.status(500).send("Что-то пошло не так...")
-	}
-})
+app.get("*", ssrRouter)

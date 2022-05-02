@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Image, Placeholder } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { useUploadQuery } from "../../app/file.service"
+import { useAppSelector } from "../../app/hooks"
 
 const Intro = () => {
 	const [mobile, setMobile] = useState(true)
@@ -10,6 +11,7 @@ const Intro = () => {
 		data: srcMobile, isLoading: mobileLoading, isError: mobileError, refetch: mobileRefetch
 	} = useUploadQuery("intro-mobile.png", { skip: !mobile })
     const [height, setHeight] = useState<number | string>('auto')
+	const news = useAppSelector(state => state.newsSlice)
 
     useEffect(() => {
         const mobile = window?.innerWidth < 768
@@ -46,8 +48,8 @@ const Intro = () => {
 						height={height}
 						width="100%"
 					/>
-					<div
-						className="position-absolute bottom-0 bg-primary bg-opacity-75 p-3 px-4 m-0 d-none d-lg-none"
+					{ news.link && news.title && news.date && <div
+						className="position-absolute bottom-0 bg-primary bg-opacity-75 p-3 px-4 m-0 d-none d-lg-block"
 						style={{ left: "62%" }}
 					>
 						<p className="text-dark mb-2">Последние новости:</p>
@@ -55,21 +57,21 @@ const Intro = () => {
 							<div>
 								<span>
 									<span className="text-white text-uppercase">
-										Матч от 13.04.2022
+										Матч от {news.date}
 									</span>
 									<br />
 									<span className="text-uppercase text-success">
-										Куркино - Урал
+										{news.title}
 									</span>
 								</span>
 							</div>
 							<div>
-								<NavLink to="/">
+								<NavLink to={news.link}>
 									<div className="arrow-right border rounded-circle ms-3" />
 								</NavLink>
 							</div>
 						</div>
-					</div>
+					</div> }
 				</div>
 			)}
 		</section>

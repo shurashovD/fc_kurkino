@@ -9,8 +9,9 @@ module.exports = {
     },
     mode: 'production',
     output: {
+        assetModuleFilename: 'static/site/assets/[name][ext][query]',
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
     },
     resolve: {
         extensions: ['.ts', '.tsx']
@@ -28,7 +29,23 @@ module.exports = {
                 options: {
                     configFile: 'tsconfig.server.json'
                 }
-            }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
         ]
     },
     plugins: [

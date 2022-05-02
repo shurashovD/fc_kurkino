@@ -16,5 +16,8 @@
         {
             "path": "./shared"
         }
+    ],
+    "typeRoots": [
+        "./shared"
     ]
 }

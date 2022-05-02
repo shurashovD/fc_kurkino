@@ -20,6 +20,6 @@
         }
     ],
     "typeRoots": [
-        "./types"
+        "./shared"
     ]
 }

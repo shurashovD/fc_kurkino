@@ -1,5 +1,5 @@
 {
-    "include": ["./site", "./index.d.ts"],
+    "include": ["./site"],
     "compilerOptions": {
         "module": "ES6",
         "target": "ES5",

@@ -14,13 +14,13 @@ module.exports = {
             directory: path.join(__dirname, 'dist', 'static'),
         }
     },
-    mode: 'production',
+    mode: 'development',
     output: {
-        assetModuleFilename: 'assets/[hash][ext][query]',
+        assetModuleFilename: 'assets/[name][ext][query]',
         clean: true,
         path: path.resolve(__dirname, 'dist', 'static', 'site'),
         filename: '[name].[contenthash].js',
-        publicPath: '/static/site/'
+        publicPath: 'static/site/'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
