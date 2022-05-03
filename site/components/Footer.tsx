@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row } from 'react-bootstrap'
+import { Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import Logo from '../img/logo.svg'
 
@@ -59,19 +59,32 @@ const Footer = () => {
 					>
 						<p className="text-uppercase m-0">Контакты:</p>
 						<a
-							href="tel:+79021215126"
+							href="tel:+79160107979"
 							className="text-secondary footer-link w-100 mb-1"
 						>
-							Телефон: +7(902)12-15-126
+							Телефон: +7 916 010-79-79
 						</a>
 						<a
-							href="mailto:fc-kurkino.mail.ru"
+							href="mailto:fckurkino@gmail.com"
 							className="text-secondary footer-link w-100 mb-1"
 						>
-							E-mail: fc-kurkino.mail.ru
+							E-mail: fckurkino@gmail.com
 						</a>
 					</Col>
-					<Col xs={12} md={4}></Col>
+					<Col xs={12} md={4}>
+						<p className="text-uppercase text-primary text-center mt-5 mt-md-0 mb-3">
+							Хочешь в команду ФК Куркино?
+						</p>
+						<div className="hstack">
+							<a
+								href="https://wa.me/79035656116?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82!%20%F0%9F%91%8B%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B2%20%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%83%20%D0%A4%D0%9A%20%D0%9A%D1%83%D1%80%D0%BA%D0%B8%D0%BD%D0%BE.%20"
+								target="_blank"
+								className="btn btn-outline-success mx-auto rounded-0 px-5 py-3"
+							>
+								Хочу в команду
+							</a>
+						</div>
+					</Col>
 				</Row>
 				<Row className="mt-5">
 					<Col xs={0} md={3}></Col>
