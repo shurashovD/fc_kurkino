@@ -3,6 +3,24 @@ import { CloseButton, Col, Container, Image, Nav, Navbar, Offcanvas, Row} from "
 import { NavLink, useLocation } from "react-router-dom"
 import Logo from "./../img/logo.svg"
 
+
+function getPageTitle(location: string): string {
+	switch (location) {
+		case "/about":
+			return "О клубе"
+		case "/playbill":
+			return "Матчи"
+		case "/team-squad":
+			return "Состав команды"
+		case "/coach-squad":
+			return "Тренерский штаб"
+		case "/contacts":
+			return "Контакты"
+		default:
+			return "ФК Куркино"
+	}
+}
+
 const NavComponent = () => {
 	const {pathname} = useLocation()
 	const [show, setShow] = useState(false)
@@ -18,6 +36,8 @@ const NavComponent = () => {
 			setSticky(true)
 			setBgOpacity(false)
 		}
+
+		document.title = getPageTitle(pathname)
 	}, [pathname])
 
     return (

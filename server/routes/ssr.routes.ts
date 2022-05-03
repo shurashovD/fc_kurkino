@@ -18,6 +18,23 @@ import TeamModel from '../models/teamModel';
 
 const router = Router()
 
+function getPageTitle(location: string): string {
+	switch (location) {
+		case "/about":
+			return "О клубе"
+		case "/playbill":
+			return "Матчи"
+		case "/team-squad":
+			return "Состав команды"
+		case "/coach-squad":
+			return "Тренерский штаб"
+		case "/contacts":
+			return "Контакты"
+		default:
+			return "ФК Куркино"
+	}
+}
+
 router.get('*', async (req, res) => {
 	try {
 		if (req.session.admin) {
@@ -66,7 +83,6 @@ router.get('*', async (req, res) => {
 		})
 		const preloadedState = store.getState()
 
-		const tempPath = path.join(__dirname, "static", "site", "index.html")
 		const location = req.path
 		const component = renderToString(
 			createElement(
@@ -79,19 +95,25 @@ router.get('*', async (req, res) => {
 				)
 			)
 		)
+
+		const pageTitle = getPageTitle(location)
+
+		const tempPath = path.join(__dirname, "static", "site", "index.html")
 		const template = await readFile(tempPath, { encoding: "utf-8" })
-		const result = template.replace(
-			`<div id="root"></div>`,
-			`
+		const result = template
+			.replace(`<title>ФК Куркино</title>`, `<title>${pageTitle}</title>`)
+			.replace(
+				`<div id="root"></div>`,
+				`
 				<div id="root">${component}</div>
 				<script>
-          			window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
+					window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
 						/</g,
 						"\\u003c"
 					)}
-        		</script>
+				</script>
 			`
-		)
+			)
 		return res.send(result)
 	} catch (e) {
 		console.log(e)
