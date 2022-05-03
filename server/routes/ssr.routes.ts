@@ -100,19 +100,14 @@ router.get('*', async (req, res) => {
 
 		const tempPath = path.join(__dirname, "static", "site", "index.html")
 		const template = await readFile(tempPath, { encoding: "utf-8" })
+		const proladedStateScript = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
+			preloadedState
+		).replace(/</g, "\\u003c")}</script>`
 		const result = template
 			.replace(`<title>ФК Куркино</title>`, `<title>${pageTitle}</title>`)
 			.replace(
 				`<div id="root"></div>`,
-				`
-				<div id="root">${component}</div>
-				<script>
-					window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-						/</g,
-						"\\u003c"
-					)}
-				</script>
-			`
+				`<div id="root">${component}</div>${proladedStateScript}`
 			)
 		return res.send(result)
 	} catch (e) {
