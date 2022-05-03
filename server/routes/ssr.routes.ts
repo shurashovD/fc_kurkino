@@ -35,6 +35,23 @@ function getPageTitle(location: string): string {
 	}
 }
 
+function getPageDescription(location: string): string {
+	switch (location) {
+		case "/about":
+			return "Информация об администрации, истории и ключевых игроках футбольного клуба"
+		case "/playbill":
+			return `Афиша матчей футбольного сезона ${new Date().getFullYear()}`
+		case "/team-squad":
+			return "Информация обо всех игроках футбольного клуба"
+		case "/coach-squad":
+			return "Информация об администрации и тренерах футбольного клуба"
+		case "/contacts":
+			return "Футбольный клуб Куркино, город Москва"
+		default:
+			return "Футбольный клуб Куркино, город Москва"
+	}
+}
+
 router.get('*', async (req, res) => {
 	try {
 		if (req.session.admin) {
@@ -96,15 +113,17 @@ router.get('*', async (req, res) => {
 			)
 		)
 
-		const pageTitle = getPageTitle(location)
-
 		const tempPath = path.join(__dirname, "static", "site", "index.html")
 		const template = await readFile(tempPath, { encoding: "utf-8" })
 		const proladedStateScript = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
 			preloadedState
 		).replace(/</g, "\\u003c")}</script>`
 		const result = template
-			.replace(`<title>ФК Куркино</title>`, `<title>${pageTitle}</title>`)
+			.replace(`<title>ФК Куркино</title>`, `<title>${getPageTitle(location)}</title>`)
+			.replace(
+				`<meta name="description" content="">`,
+				`<meta name="description" content="${getPageDescription(location)}">`
+			)
 			.replace(
 				`<div id="root"></div>`,
 				`<div id="root">${component}</div>${proladedStateScript}`
