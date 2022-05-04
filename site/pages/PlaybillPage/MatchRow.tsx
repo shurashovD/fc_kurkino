@@ -57,9 +57,9 @@ const MatchRow: FC<IMatchRowInterface> = (props) => {
                         text-uppercase text-center fs-3`}
 				>
 					{props.homeScores && props.guestScore ? (
-						<>
+						<span className="text-white">
 							{props.homeScores}:{props.guestScore}
-						</>
+						</span>
 					) : (
 						<>VS</>
 					)}

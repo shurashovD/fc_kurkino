@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Button, Carousel, Col, Container, Row, Spinner } from "react-bootstrap"
+import { Button, Carousel, Col, Container, Image, Modal, Row, Spinner } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetMatchQuery } from "../../app/matchPage.service"
 import PhotoComponent from "../../components/PhotoComponent"
@@ -21,6 +21,7 @@ const MatchPage = () => {
 			minute: '2-digit'
 		})
 	)
+	const [photo, setPhoto] = useState<string | undefined>()
 
 	useEffect(() => {
 		if ( window?.innerWidth > 576 ) setMobile(false)
@@ -28,6 +29,18 @@ const MatchPage = () => {
 
 	return (
 		<Container className="pt-5" id="current-match-page">
+			<Modal fullscreen={true} show={!!photo} onHide={() => setPhoto(undefined)} style={{
+				maxHeight: '100vh'
+			}}>
+				<Modal.Header closeButton />
+				<Modal.Body className="h-100 text-center">
+					<img src={photo || ''} alt="fc" style={{
+						objectFit: 'scale-down',
+						width: 'auto',
+						height: '100%'
+					}} />
+				</Modal.Body>
+			</Modal>
 			<Button
 				variant="link"
 				className="text-secondary mb-5 d-flex align-items-center"
@@ -67,6 +80,7 @@ const MatchPage = () => {
 									<Button
 										variant="link"
 										className="bg-transparent rounded-0 m-0 p-0 w-100"
+										onClick={() => setPhoto(item)}
 									>
 										<PhotoComponent src={item} />
 									</Button>

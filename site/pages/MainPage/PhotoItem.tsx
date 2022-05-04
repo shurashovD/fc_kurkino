@@ -31,14 +31,14 @@ const PhotoItem: FC<IPhotoItemProps> = ({ id, src, title }) => {
 				</Placeholder>
 			)}
 			{data && (
-				<img
+				<Image fluid
 					src={data}
 					style={{ objectFit: "cover" }}
 					height={height}
 				/>
 			)}
 			<NavLink
-				to={`/`}
+				to={`/match/${id}`}
 				className="position-absolute bottom-0 start-0 end-0 bg-primary bg-opacity-50 m-0 p-2 p-lg-3 text-uppercase text-white photo-link"
 			>
 				{title}
