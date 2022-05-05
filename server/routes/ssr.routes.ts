@@ -52,10 +52,34 @@ function getPageDescription(location: string): string {
 	}
 }
 
+function pageExists(location: string): boolean {
+	switch (location) {
+		case "/":
+			return true
+		case "/about":
+			return true
+		case "/playbill":
+			return true
+		case "/team-squad":
+			return true
+		case "/coach-squad":
+			return true
+		case "/contacts":
+			return true
+		default:
+			return false
+	}
+}
+
 router.get('*', async (req, res) => {
 	try {
 		if (req.session.admin) {
 			return res.redirect("/admin/panel")
+		}
+
+		const location = req.path
+		if ( !pageExists(location) ) {
+			return res.status(404).end()
 		}
 
 		const year = new Date().getFullYear()
@@ -100,7 +124,6 @@ router.get('*', async (req, res) => {
 		})
 		const preloadedState = store.getState()
 
-		const location = req.path
 		const component = renderToString(
 			createElement(
 				StaticRouter,
