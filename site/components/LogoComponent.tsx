@@ -1,6 +1,6 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { Image, Placeholder } from "react-bootstrap"
-import { useStaticQuery } from "../app/file.service"
+import { useLazyStaticQuery } from "../app/file.service"
 import noLogo from '../img/no-logo.svg'
 
 interface ILogoComponentProps {
@@ -9,8 +9,16 @@ interface ILogoComponentProps {
     width: number
 }
 
-const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src }) => {
-    const {data, isLoading, isError} = useStaticQuery(src || '')
+const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src = '' }) => {
+    const [trigger, { isFetching, isError, data }] = useLazyStaticQuery()
+
+	useEffect(() => {
+		const { abort } = trigger(src, true)
+
+		return () => {
+			abort()
+		}
+	}, [trigger])
 
     return (
 		<div
@@ -18,11 +26,11 @@ const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src }) => {
 			style={{
 				width: `${width.toString()}px`,
 				height: `${height.toString()}px`,
-				objectFit: 'contain'
+				objectFit: "contain",
 			}}
 		>
 			{isError && <Image alt="logo" src={noLogo} />}
-			{isLoading && (
+			{isFetching && (
 				<Placeholder as="div" animation="glow" className="h-100 w-100">
 					<Placeholder sm={12} className="h-100 w-100" />
 				</Placeholder>

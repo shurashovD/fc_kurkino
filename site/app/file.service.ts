@@ -46,6 +46,6 @@ const fileApi = createApi({
 	tagTypes: ["intro"],
 })
 
-export const { useStaticQuery, useUploadQuery, useLoadMutation } = fileApi
+export const { useLazyStaticQuery, useLazyUploadQuery, useStaticQuery, useUploadQuery, useLoadMutation } = fileApi
 
 export default fileApi

@@ -1,25 +1,40 @@
-import { useEffect, useState } from "react"
-import { CloseButton, Col, Container, Image, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
+import { forwardRef, useEffect, useState } from "react"
+import { Button, ButtonProps, CloseButton, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, Offcanvas, Row} from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import Logo from "./../img/logo.svg"
 
+interface ICustomToggle extends ButtonProps {
+	color: string
+}
 
 function getPageTitle(location: string): string {
 	switch (location) {
 		case "/about":
 			return "О клубе"
+		case "/news":
+			return "Новости"
 		case "/playbill":
 			return "Матчи"
 		case "/team-squad":
 			return "Состав команды"
 		case "/coach-squad":
 			return "Тренерский штаб"
+		case "/photo":
+			return "Галерея матчей"
 		case "/contacts":
 			return "Контакты"
 		default:
 			return "ФК Куркино"
 	}
 }
+
+const CustomToggle = forwardRef<HTMLButtonElement, ICustomToggle>(
+	({ children, onClick, color = 'white' }, ref) => (
+		<Button ref={ref} onClick={onClick} variant="link" className={`text-${color} text-uppercase p-0 m-0 pb-1`}>
+			{children}
+		</Button>
+	)
+)
 
 const NavComponent = () => {
 	const {pathname} = useLocation()
@@ -38,6 +53,7 @@ const NavComponent = () => {
 		}
 
 		document.title = getPageTitle(pathname)
+		window.scrollTo(0, 0)
 	}, [pathname])
 
     return (
@@ -73,15 +89,88 @@ const NavComponent = () => {
 							<Nav className="w-100 justify-content-lg-between m-0">
 								<NavLink
 									to="/"
-									className={`mx-lg-3 text-uppercase text-${
+									className={`n-link mx-lg-3 text-uppercase text-${
 										pathname === "/" ? "success" : "white"
 									}`}
 								>
 									Главная
 								</NavLink>
 								<NavLink
+									to="/news"
+									className={`n-link mx-lg-3 text-uppercase text-${
+										pathname === "/news"
+											? "success"
+											: "white"
+									}`}
+								>
+									Новости
+								</NavLink>
+								<NavLink
+									to="/playbill"
+									className={`n-link mx-lg-3 text-uppercase text-${
+										pathname === "/playbill"
+											? "success"
+											: "white"
+									}`}
+								>
+									Матчи
+								</NavLink>
+								<Dropdown className="p-0 m-0">
+									<Dropdown.Toggle
+										as={CustomToggle}
+										color={
+											pathname === "/team-squad" ||
+											pathname === "/coach-squad"
+												? "success"
+												: "white"
+										}
+									>
+										Команда
+									</Dropdown.Toggle>
+									<Dropdown.Menu className="p-0 rounded-0 shadow-sm">
+										<Dropdown.Item
+											className={`bg-${
+												pathname === "/team-squad"
+													? "success"
+													: "white"
+											}`}
+										>
+											<NavLink
+												to="/team-squad"
+												className="mx-lg-3 text-dark"
+											>
+												Состав команды
+											</NavLink>
+										</Dropdown.Item>
+										<Dropdown.Item
+											className={`bg-${
+												pathname === "/coach-squad"
+													? "success"
+													: "white"
+											}`}
+										>
+											<NavLink
+												to="/coach-squad"
+												className="mx-lg-3 text-dark"
+											>
+												Тренерский штаб
+											</NavLink>
+										</Dropdown.Item>
+									</Dropdown.Menu>
+								</Dropdown>
+								<NavLink
+									to="/photo"
+									className={`n-link mx-lg-3 text-uppercase text-${
+										pathname === "/photo"
+											? "success"
+											: "white"
+									}`}
+								>
+									Фото
+								</NavLink>
+								<NavLink
 									to="/about"
-									className={`mx-lg-3 text-uppercase text-${
+									className={`n-link mx-lg-3 text-uppercase text-${
 										pathname === "/about"
 											? "success"
 											: "white"
@@ -90,38 +179,8 @@ const NavComponent = () => {
 									О клубе
 								</NavLink>
 								<NavLink
-									to="/playbill"
-									className={`mx-lg-3 text-uppercase text-${
-										pathname === "/playbill"
-											? "success"
-											: "white"
-									}`}
-								>
-									Матчи
-								</NavLink>
-								<NavLink
-									to="/team-squad"
-									className={`mx-lg-3 text-uppercase text-${
-										pathname === "/team-squad"
-											? "success"
-											: "white"
-									}`}
-								>
-									Состав команды
-								</NavLink>
-								<NavLink
-									to="/coach-squad"
-									className={`mx-lg-3 text-uppercase text-${
-										pathname === "/coach-squad"
-											? "success"
-											: "white"
-									}`}
-								>
-									Тренерский штаб
-								</NavLink>
-								<NavLink
 									to="/contacts"
-									className={`mx-lg-3 text-uppercase text-${
+									className={`n-link mx-lg-3 text-uppercase text-${
 										pathname === "/contacts"
 											? "success"
 											: "white"
@@ -196,13 +255,13 @@ const NavComponent = () => {
 						</p>
 						<p className="text-center text-uppercase">
 							<NavLink
-								to="/about"
+								to="/news"
 								className={`mx-lg-3 text-${
-									pathname === "/about" ? "success" : "white"
+									pathname === "/news" ? "success" : "white"
 								}`}
 								onClick={() => setShow(false)}
 							>
-								О клубе
+								Новости
 							</NavLink>
 						</p>
 						<p className="text-center text-uppercase">
@@ -242,6 +301,28 @@ const NavComponent = () => {
 								onClick={() => setShow(false)}
 							>
 								Тренерский штаб
+							</NavLink>
+						</p>
+						<p className="text-center text-uppercase">
+							<NavLink
+								to="/photo"
+								className={`mx-lg-3 text-${
+									pathname === "/photo" ? "success" : "white"
+								}`}
+								onClick={() => setShow(false)}
+							>
+								Фото
+							</NavLink>
+						</p>
+						<p className="text-center text-uppercase">
+							<NavLink
+								to="/about"
+								className={`mx-lg-3 text-${
+									pathname === "/about" ? "success" : "white"
+								}`}
+								onClick={() => setShow(false)}
+							>
+								О клубе
 							</NavLink>
 						</p>
 						<p className="text-center text-uppercase">

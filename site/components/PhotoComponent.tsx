@@ -1,27 +1,41 @@
-import { FC } from "react";
-import { Image, Placeholder } from "react-bootstrap";
-import { useStaticQuery } from '../app/file.service'
+import { FC, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
+import { useLazyStaticQuery } from '../app/file.service'
 
 interface IPhotoComponentProps {
     src?: string
 }
 
 const PhotoComponent: FC<IPhotoComponentProps> = ({ src = '' }) => {
-    const {data, isLoading, isError} = useStaticQuery(src, { refetchOnMountOrArgChange: true })
+    const [trigger, { isFetching, isError, data }] = useLazyStaticQuery()
+
+	useEffect(() => {
+		const { abort } = trigger(src, true)
+
+		return () => {
+			abort()
+		}
+	}, [trigger])
 
     return (
 		<div
-			className={`${isError && "bg-light"} h-100 d-flex justify-content-end align-items-stretch`}
-			style={{ minHeight: '200px' }}
+			className="bg-light h-100 d-flex justify-content-center align-items-stretch"
+			style={{ minHeight: "300px" }}
 		>
-			{isLoading && (
-				<Placeholder as="div" animation="glow" className="h-100 w-100">
-					<Placeholder xs={12} className="h-100 m-0 p-5 w-100" />
-				</Placeholder>
+			{isFetching && (
+				<div className="m-auto text-center">
+					<Spinner
+						variant="secondary"
+						animation="border"
+					/>
+				</div>
 			)}
 			{data && !isError && (
-				<Image fluid
+				<img
+					className="w-100"
 					src={data}
+					alt="game"
+					style={{ objectFit: "cover" }}
 				/>
 			)}
 		</div>

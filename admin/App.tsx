@@ -11,6 +11,7 @@ import MatchPhotoPage from "./pages/matchPhotoPage/MatchPhotoPage";
 import MatchVideoPage from "./pages/matchVideoPage/MatchVideoPage";
 import SquadPage from "./pages/squadPage/SquadPage";
 import CoachPage from "./pages/coachPage/CoachPage";
+import NewsPage from "./pages/newsPage/NewsPage";
 
 const App: FC = () => {
     return (
@@ -28,6 +29,7 @@ const App: FC = () => {
 						<Route path="/details" element={<MatchDetailPage />} />
 						<Route path="/squad" element={<SquadPage />} />
 						<Route path="/coach-squad" element={<CoachPage />} />
+						<Route path="/news" element={<NewsPage />} />
 						<Route
 							path="/match-photos/:id"
 							element={<MatchPhotoPage />}

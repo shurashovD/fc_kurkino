@@ -26,7 +26,13 @@ const HeaderComponent = () => {
 						<NavLink to="/coach-squad" className="btn btn-link">
 							Тренеры
 						</NavLink>
-						<a href="/admin/logout" className="btn btn-link ms-auto">
+						<NavLink to="/news" className="btn btn-link">
+							Новости
+						</NavLink>
+						<a
+							href="/admin/logout"
+							className="btn btn-link ms-auto"
+						>
 							Выйти
 						</a>
 					</Nav>

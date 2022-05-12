@@ -8,11 +8,12 @@ const MatchDetailPage = () => {
 
     return (
 		<Container>
-            <MatchScoresModal />
+			<MatchScoresModal />
 			<Table>
 				<thead>
 					<tr className="align-middle text-center">
 						<th className="text-start">Матч</th>
+						<th>Дата</th>
 						<th>Счет</th>
 						<th>Фото</th>
 						<th>Видео</th>
@@ -20,21 +21,31 @@ const MatchDetailPage = () => {
 					</tr>
 				</thead>
 				<tbody>
-                    {
-                        matches?.map(({_id, homeTeam, guestTeam, homeTeamScore, guestTeamScore, photo, video}) => (
-                            <Item
-                                key={_id.toString()}
-                                id={_id.toString()}
-                                home={homeTeam.title}
-                                guest={guestTeam.title}
-                                guestScores={guestTeamScore}
-                                homeScores={homeTeamScore}
-                                photos={photo?.length}
-                                videos={video?.length}
-                            />
-                        ))
-                    }
-                </tbody>
+					{matches?.map(
+						({
+							_id,
+							date,
+							homeTeam,
+							guestTeam,
+							homeTeamScore,
+							guestTeamScore,
+							photo,
+							video,
+						}) => (
+							<Item
+								key={_id.toString()}
+								id={_id.toString()}
+                                date={date.toString()}
+								home={homeTeam.title}
+								guest={guestTeam.title}
+								guestScores={guestTeamScore}
+								homeScores={homeTeamScore}
+								photos={photo?.length}
+								videos={video?.length}
+							/>
+						)
+					)}
+				</tbody>
 			</Table>
 		</Container>
 	)

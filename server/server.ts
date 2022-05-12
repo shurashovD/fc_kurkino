@@ -9,6 +9,7 @@ import matchRoutes from './routes/match.routes'
 import squadRoutes from './routes/squad.routes'
 import coachRoutes from "./routes/coach.routes"
 import adminRoutes from './routes/admin.routes'
+import newsRoutes from "./routes/news.routes"
 import siteRoutes from './routes/site.routes'
 import { engine } from 'express-handlebars'
 import authMiddleware from './middleware/auth.middleware'
@@ -61,5 +62,6 @@ app.use("/api/squad", authMiddleware, squadRoutes)
 
 app.use("/api/coach", authMiddleware, coachRoutes)
 
+app.use("/api/news", authMiddleware, newsRoutes)
 
 app.get("*", ssrRouter)

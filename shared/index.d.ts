@@ -1,4 +1,4 @@
-import { Types, Date } from 'mongoose'
+import { Document, Types, Date } from 'mongoose'
 
 export interface ITeam {
 	_id: string | Types.ObjectId
@@ -73,6 +73,7 @@ export interface ICoachPayload {
 
 export interface IMatchPhoto {
 	_id: Types.ObjectId | string
+	date?: string
 	title: string
 	photo: string
 }
@@ -106,6 +107,14 @@ export interface INewsInitialState {
 	date?: string
 	link?: string
 	title?: string
+}
+
+export interface INews extends Document {
+	archived?: boolean
+	date: Date | string
+	photo?: string
+	text?: string
+	title: string
 }
 
 declare module "express-session" {

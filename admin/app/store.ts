@@ -5,6 +5,7 @@ import { errorHandler } from "./errorHandler";
 import logoViewSlice from "./logoViewState";
 import matchApi from "./match.service";
 import matchScoresModalSlice from "./matchScoresModalState";
+import newsApi from "./newsService";
 import playerSlice from "./playerState";
 import squadApi from "./squad.service";
 import { teamApi } from "./team.service"
@@ -16,6 +17,7 @@ export const store = configureStore({
 		[logoViewSlice.name]: logoViewSlice.reducer,
 		[matchApi.reducerPath]: matchApi.reducer,
 		[matchScoresModalSlice.name]: matchScoresModalSlice.reducer,
+		[newsApi.reducerPath]: newsApi.reducer,
 		[playerSlice.name]: playerSlice.reducer,
 		[squadApi.reducerPath]: squadApi.reducer,
 		[teamApi.reducerPath]: teamApi.reducer,
@@ -27,6 +29,7 @@ export const store = configureStore({
 		squadApi.middleware,
 		teamApi.middleware,
 		coachApi.middleware,
+		newsApi.middleware,
 	],
 })
 

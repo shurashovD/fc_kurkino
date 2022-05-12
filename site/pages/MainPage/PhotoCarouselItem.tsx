@@ -12,16 +12,15 @@ const PhotoCarouselItem: FC<IPhotoCarouselItemProps> = ({ src }) => {
 
 	const container = useCallback((element: HTMLDivElement) => {
         const div = element?.closest<HTMLDivElement>("div.carousel")
-		setHeight((208 * (div?.offsetWidth || 350)) / 370)
+		const calcHeight = 2257 * (div?.offsetWidth || 350) / 3385
+		setHeight(Math.min(calcHeight, window.innerHeight - 20))
 	}, [])
 
     return (
 		<div
-			className={`w-100 overflow-hidden ${
-				isError && "bg-light"
-			}`}
+			className={`w-100 text-center ${isError && "bg-light"}`}
 			style={{ height: `${height}px` }}
-            ref={container}
+			ref={container}
 		>
 			{isLoading && (
 				<Placeholder as="div" animation="glow" className="h-100">
@@ -30,10 +29,10 @@ const PhotoCarouselItem: FC<IPhotoCarouselItemProps> = ({ src }) => {
 			)}
 			{data && (
 				<img
-					className="d-block w-100"
+					width="auto"
+					height={height}
 					src={data}
 					alt="game"
-					height={height}
 				/>
 			)}
 		</div>

@@ -6,6 +6,7 @@ import MatchModel from '../models/matchModel'
 import TeamModel from '../models/teamModel'
 import FootballerModel from '../models/footballerModel';
 import CoachModel from '../models/coachModel';
+import NewsModel from '../models/NewsModel';
 
 const router = Router()
 
@@ -332,5 +333,142 @@ router.get('/coach-page', async (req, res) => {
 		return res.status(500).json({ message: 'Что-то пошло не так...' })
 	}
 })
+
+router.get('/news-page', async (req: Request<{}, {}, {}, { page: number, limit: number }>, res) => {
+	try {
+		const formatter = Intl.DateTimeFormat("ru", {
+			day: "numeric",
+			month: "numeric",
+			year: "numeric",
+		})
+
+		const { limit, page } = req.query
+		const skip = (page - 1) * limit
+		const lte = new Date()
+		const data = await NewsModel.find({ archived: false, date: { $lte: lte } })
+			.sort({ date: -1 })
+			.skip(skip)
+			.limit(limit)
+			.then(doc => doc.map(item => {
+				const today = formatter.format(Date.now())
+				const date = formatter.format(Date.parse(item.date.toString()))
+				return { ...item.toObject(), date: (date === today) ? 'Сегодня' : date }
+			}))
+
+		const length = await NewsModel.find({ archived: false }).then(doc => doc.length)
+
+		return res.json({ data, length })
+	} catch (e) {
+		console.log(e)
+		return res.status(500).json({ message: "Что-то пошло не так..." })
+	}
+})
+
+router.get(
+	"/photos-page",
+	async (req: Request<{}, {}, {}, { page: number; limit: number }>, res) => {
+		try {
+			const formatter = Intl.DateTimeFormat("ru", {
+				day: "numeric",
+				month: "numeric",
+				year: "numeric",
+			})
+
+			const { limit, page } = req.query
+			const start = (page - 1) * limit
+			const lte = new Date()
+			const data: { data: IMatchPhoto[], length: number} = await MatchModel.find({ archived: false, date: { $lte: lte }, photos: { $size: { $gt: 0 } } })
+				.sort({ date: -1 })
+				.populate([
+					{ path: 'homeTeam', model: TeamModel },
+					{ path: 'guestTeam', model: TeamModel }
+				])
+				.then((doc) => {
+					const result = doc.reduce((arr: IMatchPhoto[], item) => {
+						const title = `${item.homeTeam.title} - ${item.guestTeam.title}`
+						const today = formatter.format(Date.now())
+						const date = formatter.format(
+							Date.parse(item.date.toString())
+						)
+						return arr.concat(
+							item.photo?.map((photo) => ({
+								_id: item._id,
+								title,
+								photo,
+								date: date === today ? "Сегодня" : date,
+							})) || []
+						)
+					}, [])
+					return { data: result.slice(start, +start + (+limit)), length: result.length }
+				})
+			
+			return res.json(data)
+		} catch (e) {
+			console.log(e)
+			return res.status(500).json({ message: "Что-то пошло не так..." })
+		}
+	}
+)
+
+router.get("/article-page/get-by-id/:id", async (req: Request<{id: string}>, res) => {
+		try {
+			const formatter = Intl.DateTimeFormat("ru", {
+				day: "numeric",
+				month: "numeric",
+				year: "numeric",
+			})
+
+			const { id } = req.params
+			const article = await NewsModel.findById(id).then(doc => {
+				if ( !doc ) return doc
+				const today = formatter.format(Date.now())
+				const date = formatter.format(Date.parse(doc.date.toString()))
+				return { ...doc.toObject(), date: (date === today) ? 'Сегодня' : date }
+			})
+			if ( !article ) {
+				return res.status(500).json({ message: 'Новость не найдена' })
+			}
+			return res.json(article)
+		} catch (e) {
+			console.log(e)
+			return res.status(500).json({ message: "Что-то пошло не так..." })
+		}
+	}
+)
+
+router.get(
+	"/article-page/get-last/:id",
+	async (req: Request<{ id: string }>, res) => {
+		try {
+			const formatter = Intl.DateTimeFormat("ru", {
+				day: "numeric",
+				month: "numeric",
+				year: "numeric",
+			})
+
+			const { id } = req.params
+			const lte = new Date()
+			const articles = await NewsModel.find({
+				archived: false,
+				date: { $lte: lte },
+				_id: { $ne: new Types.ObjectId(id) }
+			}).sort({ date: -1 }).limit(2).then((doc) => doc.map(item => {
+					const today = formatter.format(Date.now())
+					const date = formatter.format(
+						Date.parse(item.date.toString())
+					)
+					return {
+						...item.toObject(),
+						date: date === today ? "Сегодня" : date,
+					}
+				})
+			)
+			return res.json(articles)
+		} catch (e) {
+			console.log(e)
+			return res.status(500).json({ message: "Что-то пошло не так..." })
+		}
+	}
+)
 
 export default router

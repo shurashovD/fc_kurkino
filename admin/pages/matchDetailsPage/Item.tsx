@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom"
 
 interface IItemProps {
 	id: string
+	date: string
 	home: string
 	guest: string
 	homeScores?: number
@@ -17,6 +18,7 @@ interface IItemProps {
 }
 
 const Item: FC<IItemProps> = ({
+	date,
 	guest,
 	home,
 	id,
@@ -48,6 +50,7 @@ const Item: FC<IItemProps> = ({
 				<span className="fw-bold">{home}</span> -{" "}
 				<span className="fw-bold">{guest}</span>
 			</td>
+			<td className="text-center">{date}</td>
 			<td className="text-center">
 				<Button variant="link" onClick={scoreHandler}>
 					{homeScores?.toString() || "-"} :{" "}
