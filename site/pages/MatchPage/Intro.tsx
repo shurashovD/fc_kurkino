@@ -17,7 +17,7 @@ interface IIntroProps {
 
 const Intro: FC<IIntroProps> = (props) => {
 	return (
-		<Row className="justify-content-center align-items-stretch bg-primary m-0 p-4 position-relative mb-5 match-detail-intro">
+		<Row className="justify-content-center align-items-stretch bg-primary m-0 p-4 position-relative match-detail-intro">
 			<Col
 				md={4}
 				xl={3}

@@ -8,7 +8,7 @@ const Intro = () => {
 	const [mobile, setMobile] = useState(true)
 	const [trigger, {isFetching, data: src, isError}] = useLazyUploadQuery()
     const [height, setHeight] = useState<number | string>('auto')
-	const news = useAppSelector(state => state.newsSlice)
+	const news = useAppSelector(state => state.pageSlice)
 
     useEffect(() => {
 		const mobile = window?.innerWidth < 768

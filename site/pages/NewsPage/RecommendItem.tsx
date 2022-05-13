@@ -11,11 +11,11 @@ interface IItem {
 
 const RecommendItem: FC<IItem> = ({ date, id, photo, title }) => {
     return (
-		<div className="position-relative h-100 bg-light">
+		<div className="bg-light mb-3">
 			{photo && <PhotoComponent src={photo} />}
 			<div
 				className="d-flex align-items-stretch 
-                position-absolute bottom-0 start-0 end-0 bg-primary bg-opacity-50 m-0 p-2 px-lg-4 photo-link"
+                w-100 bg-primary bg-opacity-50 m-0 p-2 px-lg-4 photo-link"
 			>
 				<div>
 					<span className="vstack h-100 justify-content-between">

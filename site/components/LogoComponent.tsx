@@ -24,9 +24,8 @@ const LogoComponent: FC<ILogoComponentProps> = ({ height, width, src = '' }) => 
 		<div
 			className="d-flex justify-content-center align-items-center bg-white m-0"
 			style={{
-				width: `${width.toString()}px`,
-				height: `${height.toString()}px`,
-				objectFit: "contain",
+				width: `${width}px`,
+				height: `${height}px`
 			}}
 		>
 			{isError && <Image alt="logo" src={noLogo} />}

@@ -103,9 +103,10 @@ export interface ITeamPage {
 	}[]
 }
 
-export interface INewsInitialState {
+export interface IPageInitialState {
 	date?: string
 	link?: string
+	pageTitle: string
 	title?: string
 }
 

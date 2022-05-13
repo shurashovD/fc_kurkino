@@ -252,12 +252,23 @@ router.get("/match-page/continous", async (req, res) => {
 
 router.get("/match-page/match/:id", async (req, res) => {
 	try {
+		const formatter = new Intl.DateTimeFormat("ru", {
+			weekday: "short",
+			month: "long",
+			day: "numeric",
+			hour: "numeric",
+			minute: "2-digit",
+		})
 		const {id} = req.params
 		const match = await MatchModel.findById(id)
 			.populate([
 				{ path: "homeTeam", model: TeamModel },
 				{ path: "guestTeam", model: TeamModel },
 			])
+			.then(doc => {
+				if ( !doc ) return doc
+				return { ...doc?.toObject(), date: formatter.format(Date.parse(doc.date.toString())) }
+			})
 
 		if ( !match ) {
 			return res.status(500).json({ messsage: 'Матч не найден' })
@@ -376,8 +387,7 @@ router.get(
 
 			const { limit, page } = req.query
 			const start = (page - 1) * limit
-			const lte = new Date()
-			const data: { data: IMatchPhoto[], length: number} = await MatchModel.find({ archived: false, date: { $lte: lte }, photos: { $size: { $gt: 0 } } })
+			const data: { data: IMatchPhoto[], length: number} = await MatchModel.find({ archived: false, photo: { $exists: true} })
 				.sort({ date: -1 })
 				.populate([
 					{ path: 'homeTeam', model: TeamModel },
@@ -387,17 +397,14 @@ router.get(
 					const result = doc.reduce((arr: IMatchPhoto[], item) => {
 						const title = `${item.homeTeam.title} - ${item.guestTeam.title}`
 						const today = formatter.format(Date.now())
-						const date = formatter.format(
-							Date.parse(item.date.toString())
-						)
-						return arr.concat(
-							item.photo?.map((photo) => ({
-								_id: item._id,
-								title,
-								photo,
-								date: date === today ? "Сегодня" : date,
-							})) || []
-						)
+						const date = formatter.format(Date.parse(item.date.toString()))
+						if ( !item.photo || item.photo.length === 0 ) return arr
+						const index = Math.round(Math.random() * item.photo?.length || 0)
+						return arr.concat({
+							_id: item._id, title,
+							photo: item.photo?.[index] || '',
+							date: date === today ? "Сегодня" : date,
+						}) || []
 					}, [])
 					return { data: result.slice(start, +start + (+limit)), length: result.length }
 				})

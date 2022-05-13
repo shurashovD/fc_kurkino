@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { IMatchPhoto } from "../../../shared"
-import { useGetPhotosQuery } from "../../app/photos.service"
+import { useGetAlbomsQuery } from "../../app/photos.service"
 import Item from "./Item"
 
 const limit = 2
@@ -10,8 +10,8 @@ const limit = 2
 const PhotosPage = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
-    const [news, setNews] = useState<IMatchPhoto[]>([])
-    const { data, isLoading, isFetching } = useGetPhotosQuery({ limit, page })
+    const [state, setState] = useState<IMatchPhoto[]>([])
+    const { data, isLoading, isFetching } = useGetAlbomsQuery({ limit, page }, { refetchOnMountOrArgChange: true })
 	const container = useRef<HTMLDivElement | null>(null)
 	const [photo, setPhoto] = useState<string | undefined>()
 
@@ -34,7 +34,8 @@ const PhotosPage = () => {
 
     useEffect(() => {
         if ( data?.data ) {
-            setNews(state => state.concat(data.data))
+			const filterData = data.data.filter(({ _id }) => state.every(item => item._id.toString() !== _id.toString()))
+            setState((state) => state.concat(filterData))
         }
     }, [data])
 
@@ -79,7 +80,7 @@ const PhotosPage = () => {
 			</Button>
 			<h3 className="text-uppercase mb-4">Галерея матчей</h3>
 			<Row xs={1} lg={2} className="g-4">
-				{news.map((item, index) => (
+				{state.map((item, index) => (
 					<Col key={`new_${index}`}>
 						<Item
 							date={item.date?.toString() || ""}

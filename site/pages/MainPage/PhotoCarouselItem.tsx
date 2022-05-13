@@ -1,13 +1,13 @@
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import { Placeholder } from "react-bootstrap"
-import { useStaticQuery } from "../../app/file.service"
+import { useLazyStaticQuery } from "../../app/file.service"
 
 interface IPhotoCarouselItemProps {
     src: string
 }
 
 const PhotoCarouselItem: FC<IPhotoCarouselItemProps> = ({ src }) => {
-    const { data, isError, isLoading } = useStaticQuery(src, { refetchOnMountOrArgChange: true })
+    const [ trigger, { data, isError, isLoading } ] = useLazyStaticQuery()
     const [height, setHeight] = useState(216)
 
 	const container = useCallback((element: HTMLDivElement) => {
@@ -15,6 +15,13 @@ const PhotoCarouselItem: FC<IPhotoCarouselItemProps> = ({ src }) => {
 		const calcHeight = 2257 * (div?.offsetWidth || 350) / 3385
 		setHeight(Math.min(calcHeight, window.innerHeight - 20))
 	}, [])
+
+	useEffect(() => {
+		const { abort } = trigger(src)
+		return () => {
+			abort()
+		}
+ 	}, [trigger])
 
     return (
 		<div

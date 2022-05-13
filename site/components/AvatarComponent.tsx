@@ -6,14 +6,14 @@ interface IPhotoComponentProps {
     src?: string
 }
 
-const PhotoComponent: FC<IPhotoComponentProps> = ({ src = '' }) => {
+const AvatarComponent: FC<IPhotoComponentProps> = ({ src = '' }) => {
     const [trigger, { isFetching, isError, data }] = useLazyStaticQuery()
 	const [height, setHeight] = useState(0)
 	const [width, setWidth] = useState(0)
 
 	const container = useCallback((container: HTMLDivElement) => {
 		if ( !container ) return
-		const height = Math.round(2 * container.offsetWidth / 3)
+		const height = Math.round(4 * container.offsetWidth / 3)
 		setHeight(height)
 		setWidth(container.offsetWidth)
 	}, [])
@@ -52,4 +52,4 @@ const PhotoComponent: FC<IPhotoComponentProps> = ({ src = '' }) => {
 	)
 }
 
-export default PhotoComponent
+export default AvatarComponent

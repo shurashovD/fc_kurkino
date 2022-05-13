@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetArticleQuery, useGetLastArticlesQuery } from "../../app/article.service"
@@ -29,21 +30,22 @@ const ArticlePage = () => {
 			<h3 className="text-uppercase mb-4">{data?.title}</h3>
 			<Row className="align-items-start">
 				<Col xs={12} lg={9}>
-					{data?.photo && <img className="w-100" src={data?.photo} />}
-					<pre className="mt-4">{data?.text}</pre>
+					{data?.photo && (
+						<img className="w-100 mb-4" src={data?.photo} />
+					)}
+					{data?.text &&
+						data.text.split("\n").map((item) => <p>{item}</p>)}
 				</Col>
-				<Col xs={12} lg={3}>
+				<Col xs={12} lg={3} className="d-flex flex-column justify-content-start">
 					<h3 className="text-uppercase mb-4">Другие новости</h3>
 					{recommend?.map((item) => (
-						<div className="position-relative mb-3" style={{ height: '300px' }}>
-							<Item
-								key={item._id.toString()}
-								id={item._id.toString()}
-								title={item.title}
-								date={item.date.toString()}
-								photo={item.photo}
-							/>
-						</div>
+						<RecommendItem
+							key={item._id.toString()}
+							id={item._id.toString()}
+							title={item.title}
+							date={item.date.toString()}
+							photo={item.photo}
+						/>
 					))}
 				</Col>
 			</Row>

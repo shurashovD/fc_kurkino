@@ -5,7 +5,7 @@ import fileApi from "./file.service";
 import mainPageApi from "./mainPage.service";
 import matchApi from "./matchPage.service";
 import newsApi from "./news.service";
-import newsSlice from "./newsSlice";
+import pageSlice from "./pageSlice";
 import photosApi from "./photos.service";
 import teamPageApi from "./teamPage.service";
 
@@ -18,7 +18,7 @@ const store = configureStore({
 		[mainPageApi.reducerPath]: mainPageApi.reducer,
 		[matchApi.reducerPath]: matchApi.reducer,
 		[newsApi.reducerPath]: newsApi.reducer,
-		[newsSlice.name]: newsSlice.reducer,
+		[pageSlice.name]: pageSlice.reducer,
 		[photosApi.reducerPath]: photosApi.reducer,
 		[teamPageApi.reducerPath]: teamPageApi.reducer,
 	},

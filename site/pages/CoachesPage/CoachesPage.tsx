@@ -1,6 +1,6 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap"
 import { useSquadQuery } from "../../app/coachPage.service"
-import PhotoComponent from "../../components/PhotoComponent"
+import AvatarComponent from "../../components/AvatarComponent"
 
 const CoachesPage = () => {
     const { data, isLoading } = useSquadQuery(undefined, { refetchOnMountOrArgChange: true })
@@ -18,7 +18,7 @@ const CoachesPage = () => {
                                     <div className="position-relative bg-light h-100"
                                         style={{ minHeight: '200px' }}
                                     >
-                                        <PhotoComponent
+                                        <AvatarComponent
                                             src={item.avatar}
                                         />
                                         <p

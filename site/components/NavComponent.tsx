@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react"
-import { Button, ButtonProps, CloseButton, Col, Container, Dropdown, Image, Nav, Navbar, NavDropdown, Offcanvas, Row} from "react-bootstrap"
+import { Button, ButtonProps, CloseButton, Col, Container, Dropdown, Nav, Navbar, Offcanvas, Row} from "react-bootstrap"
 import { NavLink, useLocation } from "react-router-dom"
 import Logo from "./../img/logo.svg"
 
@@ -9,8 +9,6 @@ interface ICustomToggle extends ButtonProps {
 
 function getPageTitle(location: string): string {
 	switch (location) {
-		case "/about":
-			return "О клубе"
 		case "/news":
 			return "Новости"
 		case "/playbill":
@@ -21,6 +19,8 @@ function getPageTitle(location: string): string {
 			return "Тренерский штаб"
 		case "/photo":
 			return "Галерея матчей"
+		case "/about":
+			return "О клубе"
 		case "/contacts":
 			return "Контакты"
 		default:
@@ -37,7 +37,7 @@ const CustomToggle = forwardRef<HTMLButtonElement, ICustomToggle>(
 )
 
 const NavComponent = () => {
-	const {pathname} = useLocation()
+	const {pathname, hash} = useLocation()
 	const [show, setShow] = useState(false)
     const [bgOpacity, setBgOpacity] = useState(true)
 	const [sticky, setSticky] = useState(false)
@@ -54,7 +54,7 @@ const NavComponent = () => {
 
 		document.title = getPageTitle(pathname)
 		window.scrollTo(0, 0)
-	}, [pathname])
+	}, [pathname, hash])
 
     return (
 		<Navbar

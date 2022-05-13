@@ -5,7 +5,7 @@ import { IMatchPhoto } from '../../shared';
 const photosApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: '/api/site/photos-page' }),
     endpoints: build => ({
-        getPhotos: build.query<{data: IMatchPhoto, length: number}, {limit: number, page: number}>({
+        getAlboms: build.query<{data: IMatchPhoto[], length: number}, {limit: number, page: number}>({
             query: ({ limit, page }) => `?limit=${limit}&page=${page}`,
             providesTags: () => ['photos']
         })
@@ -14,6 +14,6 @@ const photosApi = createApi({
     tagTypes: ['photos']
 })
 
-export const { useGetPhotosQuery } = photosApi
+export const { useGetAlbomsQuery } = photosApi
 
 export default photosApi

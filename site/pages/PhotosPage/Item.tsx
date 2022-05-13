@@ -24,7 +24,7 @@ const Item: FC<IItem> = ({ date, id, handler, photo, title }) => {
 				className="m-0 p-0 rounded-0 w-100"
 				onClick={clickHandler}
 			>
-				{photo && <PhotoComponent src={photo} />}
+				<PhotoComponent src={photo} />
 			</Button>
 			<div
 				className="d-flex align-items-stretch 
@@ -42,7 +42,7 @@ const Item: FC<IItem> = ({ date, id, handler, photo, title }) => {
 					</span>
 				</div>
 				<div className="ms-auto py-3">
-					<NavLink to={`/match/${id}`}>
+					<NavLink to={`/match/${id}#photos`}>
 						<div className="arrow-right border rounded-circle ms-3" />
 					</NavLink>
 				</div>
