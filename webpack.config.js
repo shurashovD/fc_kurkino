@@ -7,7 +7,7 @@ module.exports = {
     entry: {
         server: path.resolve(__dirname, 'server', 'server.ts')
     },
-    mode: 'production',
+    mode: 'development',
     output: {
         assetModuleFilename: 'static/site/assets/[name][ext][query]',
         path: path.resolve(__dirname, 'dist'),

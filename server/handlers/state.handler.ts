@@ -8,6 +8,10 @@ import teamPageApi from "../../site/app/teamPage.service"
 
 import { configureStore, createSlice, Store } from "@reduxjs/toolkit"
 import { IPageInitialState } from "../../shared"
+import articleApi from "../../site/app/article.service"
+import newsApi from "../../site/app/news.service"
+//import pageSlice from "../../site/app/pageSlice"
+import photosApi from "../../site/app/photos.service"
 
 type initialStateType = {
 	preloadedState: ReturnType<Store["getState"]>
@@ -48,15 +52,18 @@ export async function initialState(): Promise<initialStateType> {
 
 		const store = configureStore({
 			reducer: {
-				newsSlice: createSlice({
+				pageSlice: createSlice({
 					initialState,
 					name: "newsSlice",
 					reducers: {},
 				}).reducer,
+				[articleApi.reducerPath]: articleApi.reducer,
 				[coachPageApi.reducerPath]: coachPageApi.reducer,
 				[fileApi.reducerPath]: fileApi.reducer,
 				[mainPageApi.reducerPath]: mainPageApi.reducer,
 				[matchApi.reducerPath]: matchApi.reducer,
+				[newsApi.reducerPath]: newsApi.reducer,
+				[photosApi.reducerPath]: photosApi.reducer,
 				[teamPageApi.reducerPath]: teamPageApi.reducer,
 			},
 		})
