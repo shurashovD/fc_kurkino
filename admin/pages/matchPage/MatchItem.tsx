@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useRef } from "react"
+import { FC, MouseEvent, useEffect } from "react"
 import { Button, Spinner } from "react-bootstrap"
 import { alertSuccess } from "../../app/alertState"
 import { useAppDispatch } from "../../app/hooks"
@@ -16,16 +16,6 @@ interface IMatchItem {
 const MatchItem: FC<IMatchItem> = ({ id, date, guest, home, place, handler }) => {
     const [remove, { isLoading, isSuccess }] = useRemoveMatchMutation()
     const dispatch = useAppDispatch()
-    const formatter = useRef(
-        new Intl.DateTimeFormat('ru', {
-            weekday: 'short',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        })
-    )
     
     const rmHandler = () => {
         remove(id)
@@ -41,7 +31,7 @@ const MatchItem: FC<IMatchItem> = ({ id, date, guest, home, place, handler }) =>
 		<tr className="align-middle text-center">
 			<td>{home}</td>
 			<td>{guest}</td>
-			<td>{formatter.current.format(new Date(Date.parse(date)))}</td>
+			<td>{date}</td>
 			<td>{place}</td>
 			<td>
 				<Button size="sm" onClick={handler} data-id={id}>

@@ -56,7 +56,7 @@ const uploadVideo = multer({ storage: videoStorage })
 
 router.get('/', async (req, res) => {
 	const formatter = Intl.DateTimeFormat('ru', {
-		day: 'numeric', month: 'numeric', year: '2-digit'
+		day: 'numeric', month: 'numeric', year: '2-digit', hour: 'numeric', minute: '2-digit'
 	}) 
     try {
         const matches = await MatchModel.find({ archived: false }).populate([

@@ -6,25 +6,10 @@ import Footer from "./Footer"
 import MatchItem from "./MatchItem"
 
 const dateValue = (dateStr: string) => {
-    const date = new Date(Date.parse(dateStr))
-	const Y = date.getFullYear().toString()
-	let M = (date.getMonth() + 1).toString()
-	if (M.length === 1) {
-		M = "0" + M
-	}
-	let D = date.getDate().toString()
-	if (D.length === 1) {
-		D = "0" + D
-	}
-	let H = date.getHours().toString()
-	if (H.length === 1) {
-		H = "0" + H
-	}
-	let Min = date.getMinutes().toString()
-	if (Min.length === 1) {
-		Min = "0" + Min
-	}
-	const value = `${Y}-${M}-${D}T${H}:${Min}`
+	const [date, time = '00:00'] = dateStr.split(' ')
+	const [dd, MM, yy] = date.split('.')
+	const yyyy = `20${yy.substring(0, 2)}`
+	const value = `${yyyy}-${MM}-${dd}T${time}`
 	return value
 }
 
