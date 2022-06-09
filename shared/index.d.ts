@@ -116,6 +116,7 @@ export interface INews extends Document {
 	photo?: string
 	text?: string
 	title: string
+	video?: string
 }
 
 declare module "express-session" {

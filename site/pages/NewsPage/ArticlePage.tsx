@@ -1,8 +1,7 @@
-import { useEffect } from "react"
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap"
+import ReactPlayer from "react-player"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetArticleQuery, useGetLastArticlesQuery } from "../../app/article.service"
-import Item from "./Item"
 import RecommendItem from "./RecommendItem"
 
 const ArticlePage = () => {
@@ -35,8 +34,17 @@ const ArticlePage = () => {
 					)}
 					{data?.text &&
 						data.text.split("\n").map((item) => <p>{item}</p>)}
+					{data?.video && (
+						<div className="mt-4">
+							<ReactPlayer url={data.video} controls={true} width={'100%'} />
+						</div>
+					)}
 				</Col>
-				<Col xs={12} lg={3} className="d-flex flex-column justify-content-start">
+				<Col
+					xs={12}
+					lg={3}
+					className="d-flex flex-column justify-content-start"
+				>
 					<h3 className="text-uppercase mb-4">Другие новости</h3>
 					{recommend?.map((item) => (
 						<RecommendItem

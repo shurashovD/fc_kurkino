@@ -42,7 +42,28 @@ const storage = multer.diskStorage({
 	},
 })
 
+const videoStorage = multer.diskStorage({
+	destination: async (req, file, cb) => {
+		const { id } = req.params
+		if (!id) {
+			return
+		}
+		const logoPath = path.join(__dirname, "static", "uploads", "videos", id)
+		try {
+			await access(logoPath, constants.W_OK)
+		} catch {
+			await mkdir(logoPath, { recursive: true })
+		}
+		cb(null, logoPath)
+	},
+	filename: (req, file, cb) => {
+		const fileName = `${Date.now()}${path.extname(file.originalname)}`
+		cb(null, fileName)
+	},
+})
+
 const upload = multer({ storage })
+const uploadVideo = multer({ storage: videoStorage })
 
 router.get('/', async (req, res) => {
     try {
@@ -122,6 +143,31 @@ router.put("/photo/:id", upload.single('photo'), async (req: Request<{id: string
 	}
 })
 
+router.put("/video/:id", uploadVideo.single('video'), async (req, res) => {
+	try {
+		const { id } = req.params
+		const { file } = req
+		const newRecord = await NewsModel.findById(id)
+		if (!newRecord) {
+			return res.status(500).json({ message: "Новость не найдена" })
+		}
+
+		console.log(req.file)
+
+		if ( !file ) {
+			return res.status(500).json({ message: "Видео не загружено" })
+		}
+
+		newRecord.video = `/static/uploads/videos/${id}/${file.filename}`
+		await newRecord.save()
+
+		return res.end()
+	} catch (e) {
+		console.log(e)
+		return res.status(500).json({ message: "Что-то пошло не так..." })
+	}
+})
+
 router.delete("/photo/:id", async (req: Request<{id: string}, {}, {}>, res) => {
 	try {
         const { id } = req.params
@@ -139,6 +185,30 @@ router.delete("/photo/:id", async (req: Request<{id: string}, {}, {}>, res) => {
         }
 
         await NewsModel.findByIdAndUpdate(id, { $unset: { photo: true } })
+		return res.end()
+	} catch (e) {
+		console.log(e)
+		return res.status(500).json({ message: "Что-то пошло не так..." })
+	}
+})
+
+router.delete("/video/:id", async (req: Request<{id: string}, {}, {}>, res) => {
+	try {
+        const { id } = req.params
+        const newCurrent = await NewsModel.findById(id)
+        if ( !newCurrent ) {
+            throw new Error(`Не найдена новость ${id}`)
+        }
+
+        if ( newCurrent.video ) {
+            const filePath = path.join(__dirname, newCurrent.video)
+			try {
+				await access(filePath, constants.W_OK)
+				await rm(filePath)
+			} catch {}
+        }
+
+        await NewsModel.findByIdAndUpdate(id, { $unset: { video: true } })
 		return res.end()
 	} catch (e) {
 		console.log(e)

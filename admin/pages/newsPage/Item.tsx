@@ -2,20 +2,23 @@ import { ChangeEvent, FC, useEffect } from 'react'
 import { Button, Form, Image, Spinner } from 'react-bootstrap'
 import { alertSuccess } from '../../app/alertState'
 import { useAppDispatch } from '../../app/hooks'
-import { useRemoveNewMutation, useUpdatePhotoMutation } from '../../app/newsService'
+import { useRemoveNewMutation, useUpdatePhotoMutation, useUpdateVideoMutation } from '../../app/newsService'
 
 interface IItemProps {
 	id: string
 	date: string
+	hasVideo: boolean
 	src?: string
-    title: string
+	title: string
 	showPhotoHandler: (id: string) => void
 	showTextHandler: (id: string) => void
+	showVideoHandler: (id: string) => void
 	editedHandler: (id: string) => void
 }
 
-const Item: FC<IItemProps> = ({ id, date, title, src, editedHandler, showPhotoHandler, showTextHandler }) => {
+const Item: FC<IItemProps> = ({ id, date, title, src, editedHandler, hasVideo, showPhotoHandler, showTextHandler, showVideoHandler }) => {
     const [upload, { isLoading, isSuccess }] = useUpdatePhotoMutation()
+	const [uploadVideo, { isLoading: videoLoading, isSuccess: videoSuccess }] = useUpdateVideoMutation()
     const [remove, { isLoading: removeLoading, isSuccess: removeSuccess }] = useRemoveNewMutation()
     const dispatch = useAppDispatch()
 
@@ -28,11 +31,26 @@ const Item: FC<IItemProps> = ({ id, date, title, src, editedHandler, showPhotoHa
         }
     }
 
+	const videoHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0]
+		if (file) {
+			const body = new FormData()
+			body.append("video", file)
+			uploadVideo({ body, id })
+		}
+	}
+
     useEffect(() => {
         if ( isSuccess ) {
             dispatch(alertSuccess('Фото успешно загружено'))
         }
     }, [isSuccess])
+
+	useEffect(() => {
+		if (videoSuccess) {
+			dispatch(alertSuccess("Видео успешно загружено"))
+		}
+	}, [videoSuccess])
 
     useEffect(() => {
 		if (removeSuccess) {
@@ -77,6 +95,36 @@ const Item: FC<IItemProps> = ({ id, date, title, src, editedHandler, showPhotoHa
 				<Button size="sm" onClick={() => showTextHandler(id)}>
 					Текст
 				</Button>
+			</td>
+			<td>
+				{hasVideo ? (
+					<Button
+						className="m-0 bg-none"
+						size="sm"
+						onClick={() => showVideoHandler(id)}
+					>
+						Просмотреть
+					</Button>
+				) : (
+					<Form.Label className="m-0 p-0 w-50">
+						<input
+							type="file"
+							accept="video/*"
+							style={{
+								width: 0,
+								height: 0,
+								margin: 0,
+								display: "none",
+							}}
+							onChange={videoHandler}
+							disabled={videoLoading}
+						/>
+						<span className="btn btn-link m-0 p-0">Загрузить</span>
+					</Form.Label>
+				)}
+				{isLoading && (
+					<Spinner animation="border" variant="primary" size="sm" />
+				)}
 			</td>
 			<td>
 				<Button

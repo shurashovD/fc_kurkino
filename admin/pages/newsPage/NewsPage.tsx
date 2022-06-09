@@ -6,6 +6,7 @@ import EditedItem from "./EditedItem"
 import Footer from "./Footer"
 import Item from "./Item"
 import TextModal from "./TextModal"
+import VideoModal from "./VideoModal"
 
 const dateValue = (dateStr: string) => {
 	const date = new Date(Date.parse(dateStr))
@@ -26,6 +27,7 @@ const dateValue = (dateStr: string) => {
 const NewsPage = () => {
     const { data: news } = useGetNewsQuery(undefined, { refetchOnMountOrArgChange: true })
     const [photoId, setPhotoId] = useState<string | undefined>()
+	const [videoId, setVideoId] = useState<string | undefined>()
 	const [textId, setTextId] = useState<string | undefined>()
     const [editedId, setEditedId] = useState<string | undefined>()
     const formatter = useRef(
@@ -55,6 +57,17 @@ const NewsPage = () => {
 				show={!!textId}
 				text={news?.find(({ _id }) => _id?.toString() === textId?.toString())?.text || ''}
 			/>
+			<VideoModal
+				id={videoId || ""}
+				show={
+					!!news?.find(({ _id }) => _id.toString() === videoId)?.video
+				}
+				src={
+					news?.find(({ _id }) => _id.toString() === videoId)
+						?.video || ""
+				}
+				dismissHandler={() => setVideoId(undefined)}
+			/>
 			<Table>
 				<thead>
 					<tr className="align-middle text-center">
@@ -62,12 +75,13 @@ const NewsPage = () => {
 						<th>Новость</th>
 						<th>Дата</th>
 						<th>Текст</th>
+						<th>Видео</th>
 						<th>Действие</th>
 						<th>Действие</th>
 					</tr>
 				</thead>
 				<tbody>
-					{news?.map(({ _id, date, title, photo }) => {
+					{news?.map(({ _id, date, title, photo, video }) => {
 						const id = _id.toString()
 						if (id === editedId) {
 							return (
@@ -89,9 +103,11 @@ const NewsPage = () => {
 									Date.parse(date.toString())
 								)}
 								title={title}
+								hasVideo={!!video}
 								editedHandler={(id) => setEditedId(id)}
 								showPhotoHandler={(id) => setPhotoId(id)}
 								showTextHandler={(id) => setTextId(id)}
+								showVideoHandler={(id) => setVideoId(id)}
 								src={photo}
 							/>
 						)

@@ -6,7 +6,8 @@ const newSchema = new Schema<INews, Model<INews>>({
     date: { type: Date, required: true },
     photo: { type: String },
     text: String,
-    title: { type: String, required: true, unique: true }
+    title: { type: String, required: true, unique: true },
+    video: String
 })
 
 export default model('New', newSchema)

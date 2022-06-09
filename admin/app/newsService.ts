@@ -17,41 +17,62 @@ const newsApi = createApi({
 			}),
 			invalidatesTags: ["news"],
 		}),
-		updateNew: build.mutation<undefined, {body: { title: string; date: string }, id: string}>({
-			query: ({body, id}) => ({
+		updateNew: build.mutation<
+			undefined,
+			{ body: { title: string; date: string }; id: string }
+		>({
+			query: ({ body, id }) => ({
 				body,
 				method: "PUT",
 				url: `/${id}`,
 			}),
 			invalidatesTags: ["news"],
 		}),
-        removeNew: build.mutation<undefined, string>({
-			query: id => ({
+		removeNew: build.mutation<undefined, string>({
+			query: (id) => ({
 				method: "DELETE",
 				url: `/${id}`,
 			}),
 			invalidatesTags: ["news"],
 		}),
-        updateText: build.mutation<undefined, {body: { text: string }, id: string}>({
-			query: ({body, id}) => ({
+		updateText: build.mutation<
+			undefined,
+			{ body: { text: string }; id: string }
+		>({
+			query: ({ body, id }) => ({
 				body,
 				method: "PUT",
 				url: `/text/${id}`,
 			}),
 			invalidatesTags: ["news"],
 		}),
-        updatePhoto: build.mutation<undefined, {body: FormData, id: string}>({
-			query: ({body, id}) => ({
+		updatePhoto: build.mutation<undefined, { body: FormData; id: string }>({
+			query: ({ body, id }) => ({
 				body,
 				method: "PUT",
 				url: `/photo/${id}`,
 			}),
 			invalidatesTags: ["news"],
 		}),
-        removePhoto: build.mutation<undefined, string>({
-			query: id => ({
+		removePhoto: build.mutation<undefined, string>({
+			query: (id) => ({
 				method: "DELETE",
 				url: `/photo/${id}`,
+			}),
+			invalidatesTags: ["news"],
+		}),
+		updateVideo: build.mutation<undefined, { body: FormData; id: string }>({
+			query: ({ body, id }) => ({
+				body,
+				method: "PUT",
+				url: `/video/${id}`,
+			}),
+			invalidatesTags: ["news"],
+		}),
+		removeVideo: build.mutation<undefined, string>({
+			query: (id) => ({
+				method: "DELETE",
+				url: `/video/${id}`,
 			}),
 			invalidatesTags: ["news"],
 		}),
@@ -67,7 +88,9 @@ export const {
     useRemovePhotoMutation,
     useUpdateNewMutation,
     useUpdatePhotoMutation,
-    useUpdateTextMutation
+    useUpdateTextMutation,
+	useUpdateVideoMutation,
+	useRemoveVideoMutation,
 } = newsApi
 
 export default newsApi
