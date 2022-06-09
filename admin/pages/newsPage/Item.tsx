@@ -122,7 +122,7 @@ const Item: FC<IItemProps> = ({ id, date, title, src, editedHandler, hasVideo, s
 						<span className="btn btn-link m-0 p-0">Загрузить</span>
 					</Form.Label>
 				)}
-				{isLoading && (
+				{videoLoading && (
 					<Spinner animation="border" variant="primary" size="sm" />
 				)}
 			</td>
