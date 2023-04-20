@@ -117,8 +117,8 @@ router.get('/main-page/birthdays', async (req, res) => {
 			date: number
 		}
 
-		const team = await FootballerModel.find({ birthday: { $exists: true } })
-		const coaches = await CoachModel.find({ birthday: { $exists: true } })
+		const team = await FootballerModel.find({ birthday: { $exists: true }, archived: false })
+		const coaches = await CoachModel.find({ birthday: { $exists: true }, archived: false })
 
 		const teamCompare: compare[] = team.map(({_id, birthday}: IFootballer) => {
 			const ms = Date.parse(birthday?.toString() || '')
